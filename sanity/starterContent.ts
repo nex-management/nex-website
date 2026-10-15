@@ -44,9 +44,13 @@ export function starterSiteSettings(): StarterDocument {
   });
 }
 
-export function starterHotels(): StarterDocument[] {
-  return hotels.map((h, i) =>
-    compact({
+/** Hotels; the photo (when the code ships one) is attached by the tool after it uploads the file at `photoPath`. */
+export function starterHotels(): { doc: StarterDocument; photoPath: string | null; photoFilename: string; alt: string }[] {
+  return hotels.map((h, i) => ({
+    photoPath: h.image?.src ?? null,
+    photoFilename: `${h.slug}.jpg`,
+    alt: h.image?.alt ?? h.name,
+    doc: compact({
       _id: `hotel-${h.slug}`,
       _type: "hotel",
       name: h.name,
@@ -63,7 +67,7 @@ export function starterHotels(): StarterDocument[] {
       order: i + 1,
       hidden: false,
     }),
-  );
+  }));
 }
 
 /** Team members; the photo is attached by the tool after it uploads the file at `photoPath`. */

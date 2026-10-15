@@ -46,6 +46,13 @@ function heroImageRef(img: SanityImage): ImageRef | null {
   return { ...ref, srcSet: `${urlFor(img!, 1200, 675)} 1200w, ${urlFor(img!, 2400, 1350)} 2400w` };
 }
 
+/** Hotel card/page photo: two sizes so cards don't download the large file. */
+function hotelImageRef(img: SanityImage, altFallback: string): ImageRef | null {
+  const ref = imageRef(img, 1200, 750, altFallback);
+  if (!ref) return null;
+  return { ...ref, srcSet: `${urlFor(img!, 600, 375)} 600w, ${urlFor(img!, 1200, 750)} 1200w` };
+}
+
 function mapHotel(h: Record<string, unknown>): Hotel {
   const gallery = Array.isArray(h.gallery) ? (h.gallery as SanityImage[]) : [];
   return {
@@ -57,7 +64,7 @@ function mapHotel(h: Record<string, unknown>): Hotel {
     brand: (h.brand as string) || null,
     highlights: Array.isArray(h.highlights) ? (h.highlights as string[]) : [],
     description: (h.description as string) || null,
-    image: imageRef(h.image as SanityImage, 1200, 750, String(h.name ?? "")),
+    image: hotelImageRef(h.image as SanityImage, String(h.name ?? "")),
     gallery: gallery.map((g) => imageRef(g, 1200, 750, String(h.name ?? ""))).filter((g): g is ImageRef => g !== null),
     rooms: typeof h.rooms === "number" ? h.rooms : null,
     managedSince: typeof h.managedSince === "number" ? h.managedSince : null,

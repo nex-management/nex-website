@@ -63,7 +63,21 @@ export function HotelPhoto({ hotel, sizes, className = "" }: { hotel: Hotel; siz
   if (hotel.image) {
     return (
       <div className={`relative aspect-[16/10] overflow-hidden ${className}`}>
-        <Image src={hotel.image.src} alt={hotel.image.alt} unoptimized={hotel.image.unoptimized} fill sizes={sizes} className="object-cover" />
+        {hotel.image.srcSet ? (
+          // Pre-sized files: served as-is, no image optimizer.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={hotel.image.src}
+            srcSet={hotel.image.srcSet}
+            sizes={sizes}
+            alt={hotel.image.alt}
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <Image src={hotel.image.src} alt={hotel.image.alt} unoptimized={hotel.image.unoptimized} fill sizes={sizes} className="object-cover" />
+        )}
       </div>
     );
   }

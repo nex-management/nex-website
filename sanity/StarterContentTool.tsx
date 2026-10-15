@@ -28,7 +28,7 @@ function plan(): Plan {
   return [
     { label: "Site settings", ids: [starterSiteSettings()._id] },
     { label: "Financial strength", ids: [starterFinancialStrength()._id] },
-    { label: "Hotels", ids: starterHotels().map((d) => d._id) },
+    { label: "Hotels (with photos)", ids: starterHotels().map((h) => h.doc._id) },
     { label: "Team members (with photos)", ids: starterTeam().map((t) => t.doc._id) },
     { label: "Testimonials", ids: starterTestimonials().map((d) => d._id) },
     { label: "Services", ids: starterServices().map((d) => d._id) },
@@ -75,7 +75,7 @@ export function StarterContentTool() {
       setLog([...lines]);
     };
     try {
-      const docs: StarterDocument[] = [starterFinancialStrength(), ...starterHotels(), ...starterTestimonials(), ...starterServices()].filter(
+      const docs: StarterDocument[] = [starterFinancialStrength(), ...starterTestimonials(), ...starterServices()].filter(
         (d) => !existing.has(d._id),
       );
 
@@ -90,6 +90,19 @@ export function StarterContentTool() {
         } else {
           docs.push(settings);
         }
+      }
+
+      for (const hotel of starterHotels()) {
+        if (existing.has(hotel.doc._id)) continue;
+        if (!hotel.photoPath) {
+          docs.push(hotel.doc);
+          continue;
+        }
+        const res = await fetch(hotel.photoPath);
+        if (!res.ok) throw new Error(`Could not load the photo ${hotel.photoPath} (${res.status}).`);
+        const asset = await client.assets.upload("image", await res.blob(), { filename: hotel.photoFilename, contentType: "image/jpeg" });
+        say(`Uploaded photo for ${String(hotel.doc.name)} – ${String(hotel.doc.city)}`);
+        docs.push({ ...hotel.doc, image: { _type: "image", alt: hotel.alt, asset: { _type: "reference", _ref: asset._id } } });
       }
 
       for (const member of starterTeam()) {
