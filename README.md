@@ -46,7 +46,8 @@ Components read content only through `src/content/index.ts`. When Sanity is conn
    - `NEXT_PUBLIC_SANITY_PROJECT_ID`
    - `NEXT_PUBLIC_SANITY_DATASET` (optional, defaults to `production`)
 3. In Sanity's project settings → API → CORS origins, add the site's URL(s) (e.g. `https://nex-mgmt.com`, `https://nex-management.netlify.app`, `http://localhost:3000`) with *Allow credentials* so the Studio can sign in.
-4. Open `/studio` on the site, sign in, and fill in **Site settings**, **Hotels**, **Team**, **Testimonials** and **Services**. Any document type that is still empty keeps using the local files, so the site can be migrated one section at a time.
+4. Open `/studio` on the site, sign in, and use the **Starter content** tab once: it copies the content the site launched with (site settings, hotels, team with photos, testimonials, services) into Sanity so editing starts from a filled-in panel. It only adds what is missing, so it is safe to run again.
+5. Edit under **Structure**. Any document type that is still empty keeps using the local files, so the site can also be migrated one section at a time.
 
 Sanity reads are cached and prerendered: published changes appear on the site within about an hour on their own. For instant updates, set `SANITY_REVALIDATE_SECRET` on the host and add a Sanity webhook (project settings → API → Webhooks) that sends `POST https://<site>/api/revalidate` with the HTTP header `x-revalidate-secret: <the same secret>`.
 

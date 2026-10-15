@@ -5,8 +5,10 @@
  */
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
+import { RocketIcon } from "@sanity/icons/Rocket";
 import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schemaTypes } from "./sanity/schemaTypes";
+import { StarterContentTool } from "./sanity/StarterContentTool";
 
 const singletonTypes = new Set(["siteSettings"]);
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
@@ -44,6 +46,11 @@ export default defineConfig({
           ]),
     }),
   ],
+  // One-click import of the content the site launched with (safe to re-run).
+  tools: (prev) => [...prev, { name: "starter-content", title: "Starter content", icon: RocketIcon, component: StarterContentTool }],
+  // Keep the panel simple for a small editing team: no content releases or scheduling UI.
+  releases: { enabled: false },
+  scheduledDrafts: { enabled: false },
   // Keep the version pinned so the Studio and the site read the same API.
   apiVersion,
 });
