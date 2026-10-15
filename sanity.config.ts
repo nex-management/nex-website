@@ -10,7 +10,7 @@ import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schemaTypes } from "./sanity/schemaTypes";
 import { StarterContentTool } from "./sanity/StarterContentTool";
 
-const singletonTypes = new Set(["siteSettings"]);
+const singletonTypes = new Set(["siteSettings", "financialStrength"]);
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
 
 export default defineConfig({
@@ -38,6 +38,10 @@ export default defineConfig({
               .title("Site settings")
               .id("siteSettings")
               .child(S.document().schemaType("siteSettings").documentId("siteSettings")),
+            S.listItem()
+              .title("Financial strength")
+              .id("financialStrength")
+              .child(S.document().schemaType("financialStrength").documentId("financialStrength")),
             S.divider(),
             S.documentTypeListItem("hotel").title("Hotels"),
             S.documentTypeListItem("teamMember").title("Team"),

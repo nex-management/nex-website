@@ -1,6 +1,7 @@
 import type {
   AboutContent,
   CeoQuote,
+  FinancialStrengthContent,
   PartnerContent,
   Service,
   Stat,
@@ -159,6 +160,41 @@ export const trackRecord: TrackRecordContent = {
       },
     ],
   },
+};
+
+export const financialStrength: FinancialStrengthContent = {
+  eyebrow: "By the numbers",
+  heading: "Portfolio financial strength",
+  intro: "Trailing twelve months through June 2026, from property-level P&Ls and current mortgage statements.",
+  metrics: [
+    { value: "2.48x", label: "Blended DSCR", note: "Banks typically require 1.20x–1.25x" },
+    { value: "$6.87M", label: "TTM Portfolio NOI", note: "Up 15.3% from $5.96M" },
+    { value: "36.5%", label: "Stabilized NOI Margin", note: "Up from 33.6% prior year" },
+    { value: "+9.6%", label: "2026 YTD Revenue Growth", note: "Four stabilized hotels, ADR +11.1%" },
+  ],
+  charts: [
+    {
+      title: "Blended debt service coverage",
+      caption: "Portfolio DSCR of 2.48x is nearly double the 1.25x lender minimum.",
+      format: "multiple",
+      max: 3,
+      bars: [
+        { label: "Bank minimum", value: 1.25, display: "1.25x", emphasis: false },
+        { label: "Our blended", value: 2.48, display: "2.48x", emphasis: true },
+      ],
+    },
+    {
+      title: "Portfolio NOI growth",
+      caption: "Trailing twelve months across the portfolio, up 15.3% year over year.",
+      format: "currency",
+      max: 8,
+      bars: [
+        { label: "Prior TTM", value: 5.96, display: "$5.96M", emphasis: false },
+        { label: "Current TTM", value: 6.87, display: "$6.87M", emphasis: true },
+      ],
+    },
+  ],
+  hidden: false,
 };
 
 export const ceoQuote: CeoQuote = {

@@ -12,6 +12,7 @@ import { useClient } from "sanity";
 import { Box, Button, Card, Flex, Heading, Stack, Text } from "@sanity/ui";
 import { apiVersion } from "./env";
 import {
+  starterFinancialStrength,
   starterHotels,
   starterServices,
   starterSiteSettings,
@@ -25,6 +26,7 @@ type Plan = { label: string; ids: string[] }[];
 function plan(): Plan {
   return [
     { label: "Site settings", ids: [starterSiteSettings()._id] },
+    { label: "Financial strength", ids: [starterFinancialStrength()._id] },
     { label: "Hotels", ids: starterHotels().map((d) => d._id) },
     { label: "Team members (with photos)", ids: starterTeam().map((t) => t.doc._id) },
     { label: "Testimonials", ids: starterTestimonials().map((d) => d._id) },
@@ -72,7 +74,7 @@ export function StarterContentTool() {
       setLog([...lines]);
     };
     try {
-      const docs: StarterDocument[] = [starterSiteSettings(), ...starterHotels(), ...starterTestimonials(), ...starterServices()].filter(
+      const docs: StarterDocument[] = [starterSiteSettings(), starterFinancialStrength(), ...starterHotels(), ...starterTestimonials(), ...starterServices()].filter(
         (d) => !existing.has(d._id),
       );
 

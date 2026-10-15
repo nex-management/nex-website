@@ -145,6 +145,45 @@ export type TrackRecordContent = {
   };
 };
 
+/** A headline figure in the "Financial strength" section. */
+export type FinancialMetric = {
+  value: string;
+  label: string;
+  note: string | null;
+};
+
+/** How a comparison chart formats its axis ticks. */
+export type ChartFormat = "multiple" | "currency" | "percent";
+
+export type ComparisonBar = {
+  label: string;
+  /** Numeric value used for the bar height. */
+  value: number;
+  /** Value as shown above the bar, e.g. "$6.87M". */
+  display: string;
+  /** The bar that carries the message (gold); the other is the reference (grey). */
+  emphasis: boolean;
+};
+
+export type ComparisonChart = {
+  title: string;
+  caption: string;
+  format: ChartFormat;
+  /** Top of the axis, in the chart's unit (e.g. 3 for "3x", 8 for "$8M"). */
+  max: number;
+  bars: ComparisonBar[];
+};
+
+export type FinancialStrengthContent = {
+  eyebrow: string;
+  heading: string;
+  /** Source and period of the figures, e.g. "Trailing twelve months through June 2026…". */
+  intro: string;
+  metrics: FinancialMetric[];
+  charts: ComparisonChart[];
+  hidden: boolean;
+};
+
 export type TeamGroup = "leadership" | "operations";
 
 export type TeamMember = {

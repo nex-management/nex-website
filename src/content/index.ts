@@ -13,9 +13,10 @@ import * as home from "./home";
 import { hotelTypes, hotels as localHotels } from "./hotels";
 import { footerNav, mainNav, site as localSite } from "./site";
 import { careers, perspectivesIntro, team as localTeam, teamGroups, teamIntro } from "./team";
-import type { Hotel, ImageRef, Service, SiteSettings, TeamMember, Testimonial } from "./types";
+import type { ComparisonChart, FinancialStrengthContent, Hotel, ImageRef, Service, SiteSettings, TeamMember, Testimonial } from "./types";
 import { client, urlFor } from "@/sanity/client";
 import {
+  financialStrengthQuery,
   hotelBySlugQuery,
   hotelsQuery,
   servicesQuery,
@@ -24,7 +25,7 @@ import {
   testimonialsQuery,
 } from "@/sanity/queries";
 
-export type { Hotel, Service, SiteSettings, TeamMember, Testimonial } from "./types";
+export type { FinancialStrengthContent, Hotel, Service, SiteSettings, TeamMember, Testimonial } from "./types";
 
 // ---------------------------------------------------------------------------
 // Sanity → site shapes
@@ -190,6 +191,40 @@ export async function getTestimonials(): Promise<Testimonial[]> {
     }));
   }
   return home.testimonials;
+}
+
+function mapChart(c: Record<string, unknown>): ComparisonChart {
+  const bars = Array.isArray(c.bars) ? (c.bars as Record<string, unknown>[]) : [];
+  return {
+    title: String(c.title ?? ""),
+    caption: String(c.caption ?? ""),
+    format: (c.format as ComparisonChart["format"]) ?? "multiple",
+    max: typeof c.max === "number" ? c.max : 0,
+    bars: bars.map((b) => ({
+      label: String(b.label ?? ""),
+      value: typeof b.value === "number" ? b.value : 0,
+      display: String(b.display ?? b.value ?? ""),
+      emphasis: b.emphasis === true,
+    })),
+  };
+}
+
+export async function getFinancialStrength(): Promise<FinancialStrengthContent> {
+  const local = home.financialStrength;
+  const s = await fetchOrNull<Record<string, unknown>>(financialStrengthQuery);
+  if (!s) return local;
+  const metrics = Array.isArray(s.metrics) ? (s.metrics as Record<string, unknown>[]) : [];
+  const charts = Array.isArray(s.charts) ? (s.charts as Record<string, unknown>[]) : [];
+  return {
+    eyebrow: local.eyebrow,
+    heading: (s.heading as string) || local.heading,
+    intro: (s.intro as string) || local.intro,
+    metrics: metrics.length
+      ? metrics.map((m) => ({ value: String(m.value ?? ""), label: String(m.label ?? ""), note: (m.note as string) || null }))
+      : local.metrics,
+    charts: charts.length ? charts.map(mapChart) : local.charts,
+    hidden: s.hidden === true,
+  };
 }
 
 export async function getServices(): Promise<Service[]> {

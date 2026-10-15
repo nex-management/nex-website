@@ -3,7 +3,7 @@
  * src/content/ – used by the "Starter content" tool in the Studio so the
  * editing panel starts out filled in instead of empty.
  */
-import { services, stats, statsFootnote, testimonials } from "@/content/home";
+import { financialStrength, services, stats, statsFootnote, testimonials } from "@/content/home";
 import { hotels } from "@/content/hotels";
 import { site } from "@/content/site";
 import { team } from "@/content/team";
@@ -113,4 +113,26 @@ export function starterServices(): StarterDocument[] {
       order: i + 1,
     }),
   );
+}
+
+export const FINANCIAL_STRENGTH_ID = "financialStrength";
+
+export function starterFinancialStrength(): StarterDocument {
+  return compact({
+    _id: FINANCIAL_STRENGTH_ID,
+    _type: "financialStrength",
+    heading: financialStrength.heading,
+    intro: financialStrength.intro,
+    metrics: financialStrength.metrics.map((m, i) => compact({ _key: `metric-${i + 1}`, _type: "metric", value: m.value, label: m.label, note: m.note })),
+    charts: financialStrength.charts.map((c, i) => ({
+      _key: `chart-${i + 1}`,
+      _type: "chart",
+      title: c.title,
+      caption: c.caption,
+      format: c.format,
+      max: c.max,
+      bars: c.bars.map((b, j) => ({ _key: `bar-${j + 1}`, _type: "bar", label: b.label, value: b.value, display: b.display, emphasis: b.emphasis })),
+    })),
+    hidden: financialStrength.hidden,
+  });
 }

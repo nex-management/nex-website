@@ -29,3 +29,9 @@ export const testimonialsQuery = defineQuery(`*[_type == "testimonial" && approv
 export const servicesQuery = defineQuery(`*[_type == "service"] | order(order asc, title asc){
   "slug": slug.current, title, description, details, icon
 }`);
+
+export const financialStrengthQuery = defineQuery(`*[_type == "financialStrength"][0]{
+  heading, intro, hidden,
+  metrics[]{value, label, note},
+  charts[]{title, caption, format, max, bars[]{label, value, display, emphasis}}
+}`);
