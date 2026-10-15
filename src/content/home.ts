@@ -16,8 +16,8 @@ export const hero = {
   subheading: "From underperforming to unstoppable.",
   intro:
     "Nex Management is a South Florida-based hospitality company. We own and operate multiple branded hotels, and we partner with hotel owners who want stronger results – whether through professional management, property improvement projects, or strategic acquisitions.",
-  primaryCta: { label: "For Investors", href: "#partner" },
-  secondaryCta: { label: "For Hotel Owners", href: "#partner" },
+  primaryCta: { label: "For Investors", href: "/partner#investors" },
+  secondaryCta: { label: "For Hotel Owners", href: "/partner#owners" },
 };
 
 export const stats: Stat[] = [
@@ -70,6 +70,7 @@ export const services: Service[] = [
     title: "Hotel Management",
     description:
       "Full-service operations management for branded and independent hotels. From front desk to financials, we handle it all.",
+    details: null,
     icon: "building",
   },
   {
@@ -77,6 +78,7 @@ export const services: Service[] = [
     title: "Acquisitions & Due Diligence",
     description:
       "Thinking about buying a hotel? We provide in-depth due diligence reports so you know exactly what you're getting into before you close.",
+    details: null,
     icon: "search",
   },
   {
@@ -84,6 +86,7 @@ export const services: Service[] = [
     title: "PIP Projects",
     description:
       "We manage Property Improvement Plans from start to finish – scope, contractors, brand compliance, and delivery on time and on budget.",
+    details: null,
     icon: "house",
   },
   {
@@ -91,6 +94,7 @@ export const services: Service[] = [
     title: "Accounting Services",
     description:
       "Hotel-specific financial reporting, bookkeeping, and oversight designed for owners who want full visibility into their numbers.",
+    details: null,
     icon: "ledger",
   },
   {
@@ -98,6 +102,7 @@ export const services: Service[] = [
     title: "Consultation",
     description:
       "Strategic guidance for hotel owners and investors looking to improve performance, reposition a property, or plan their next move.",
+    details: null,
     icon: "compass",
   },
 ];
@@ -184,7 +189,7 @@ export const partner: PartnerContent = {
         "3:1 bank leverage on every dollar invested",
         "Owners who invest alongside you",
       ],
-      cta: { label: "Explore investments", href: "#contact" },
+      cta: { label: "Explore investments", href: "/contact?topic=invest" },
       variant: "primary",
     },
     {
@@ -196,7 +201,7 @@ export const partner: PartnerContent = {
         "Access to capital for renovations and expansions",
         "Wyndham brand standards and PIP expertise",
       ],
-      cta: { label: "Discuss a partnership", href: "#contact" },
+      cta: { label: "Discuss a partnership", href: "/contact?topic=management" },
       variant: "secondary",
     },
   ],
@@ -214,18 +219,21 @@ export const testimonials: Testimonial[] = [
       "Nex delivered on their promise from day one. Our revenue is up 40% and our operational headaches are gone. A true game-changer.",
     name: null,
     role: "Hotel Owner, South Florida",
+    company: null,
   },
   {
     quote:
       "The professionalism and transparency of their team are unmatched. We finally have clear insight into our property's performance and a strategy that works.",
     name: "Jacob B.",
     role: "Property Owner",
+    company: null,
   },
   {
     quote:
       "We were skeptical, but the results are undeniable. They turned our underperforming hotel into a local market leader in under a year. I'd recommend them to any owner.",
     name: "M. Jilau",
     role: "Asset Manager",
+    company: null,
   },
 ];
 

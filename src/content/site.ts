@@ -31,19 +31,19 @@ export const site: SiteSettings = {
 };
 
 export const mainNav: NavItem[] = [
-  { label: "About", href: "/#about" },
-  { label: "Services", href: "/#services" },
-  { label: "Portfolio", href: "/#portfolio" },
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "Team", href: "/team" },
-  { label: "Partner With Us", href: "/#partner" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Partner With Us", href: "/partner" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const footerNav = {
   company: mainNav,
   investors: [
-    { label: "Investment opportunities", href: "/#partner" },
+    { label: "Investment opportunities", href: "/partner#investors" },
     { label: "Investor Login", href: "#investor-login" },
-    { label: "Schedule a call", href: "/#contact" },
+    { label: "Schedule a call", href: "/contact" },
   ] satisfies NavItem[],
 };

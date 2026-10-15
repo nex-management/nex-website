@@ -2,9 +2,9 @@ import Image from "next/image";
 import { getHomeContent, getSiteSettings } from "@/content";
 import { ButtonLink } from "@/components/ui/Button";
 
-export function Hero() {
+export async function Hero() {
   const { hero } = getHomeContent();
-  const site = getSiteSettings();
+  const site = await getSiteSettings();
 
   return (
     <section className="relative flex min-h-[760px] items-center overflow-hidden bg-ink text-white">
@@ -13,6 +13,7 @@ export function Hero() {
           <Image
             src={site.heroImage.src}
             alt={site.heroImage.alt}
+            unoptimized={site.heroImage.unoptimized}
             fill
             priority
             sizes="100vw"

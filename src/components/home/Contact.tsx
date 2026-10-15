@@ -5,9 +5,9 @@ import { ContactForm } from "./ContactForm";
 
 const detailLabel = "text-[11px] font-bold uppercase tracking-[0.18em] text-muted-2";
 
-export function Contact() {
+export async function Contact() {
   const { contact } = getHomeContent();
-  const site = getSiteSettings();
+  const site = await getSiteSettings();
 
   return (
     <section id="contact" className="scroll-mt-20 bg-white">

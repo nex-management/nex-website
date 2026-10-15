@@ -13,6 +13,8 @@ export type ImageRef = {
   alt: string;
   width?: number;
   height?: number;
+  /** True for images an image CDN (Sanity) already serves resized – skips Next's own optimizer. */
+  unoptimized?: boolean;
 };
 
 export type Link = {
@@ -91,6 +93,8 @@ export type Service = {
   slug: string;
   title: string;
   description: string;
+  /** Longer paragraph for the Services page. */
+  details: string | null;
   icon: ServiceIcon;
 };
 
@@ -102,8 +106,12 @@ export type Hotel = {
   type: HotelType;
   address: string;
   city: string;
+  /** Brand / franchise, e.g. "Wyndham Hotels & Resorts". null = independent. */
+  brand: string | null;
   highlights: string[];
+  description: string | null;
   image: ImageRef | null;
+  gallery: ImageRef[];
   rooms: number | null;
   managedSince: number | null;
   ownership: "Owned" | "Managed" | null;
@@ -166,6 +174,7 @@ export type Testimonial = {
   /** null = name still to be confirmed with the client. */
   name: string | null;
   role: string;
+  company: string | null;
 };
 
 export type PartnerTrack = {

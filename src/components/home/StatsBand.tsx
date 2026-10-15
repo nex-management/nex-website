@@ -1,8 +1,7 @@
-import { getHomeContent, getSiteSettings } from "@/content";
+import { getSiteSettings, getStats } from "@/content";
 
-export function StatsBand() {
-  const { stats, statsFootnote } = getHomeContent();
-  const site = getSiteSettings();
+export async function StatsBand() {
+  const [{ stats, footnote: statsFootnote }, site] = await Promise.all([getStats(), getSiteSettings()]);
 
   const asOf = site.statsAsOf ?? (site.showPlaceholders ? "[DATE]" : null);
 

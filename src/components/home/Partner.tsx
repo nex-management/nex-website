@@ -2,9 +2,9 @@ import { getHomeContent, getSiteSettings } from "@/content";
 import { ButtonLink } from "@/components/ui/Button";
 import { DotList, Eyebrow, SectionIntro } from "@/components/ui/Typography";
 
-export function Partner() {
+export async function Partner() {
   const { partner } = getHomeContent();
-  const site = getSiteSettings();
+  const site = await getSiteSettings();
 
   return (
     <section id="partner" className="scroll-mt-20 border-y border-line bg-cream">

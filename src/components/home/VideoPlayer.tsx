@@ -34,7 +34,7 @@ export function VideoPlayer({
     <div className="relative flex aspect-video w-full max-w-[65rem] flex-col items-center justify-center gap-[18px] overflow-hidden border border-ink-3 bg-ink-2">
       {poster ? (
         <>
-          <Image src={poster.src} alt="" fill sizes="(min-width: 1120px) 1040px, 100vw" className="object-cover" />
+          <Image src={poster.src} alt="" unoptimized={poster.unoptimized} fill sizes="(min-width: 1120px) 1040px, 100vw" className="object-cover" />
           <div aria-hidden="true" className="absolute inset-0 bg-ink/50" />
         </>
       ) : null}
