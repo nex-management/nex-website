@@ -15,6 +15,8 @@ export type ImageRef = {
   height?: number;
   /** True for images an image CDN (Sanity) already serves resized – skips Next's own optimizer. */
   unoptimized?: boolean;
+  /** Optional responsive candidates ("url 1200w, url 2400w") for full-width images. */
+  srcSet?: string;
 };
 
 export type Link = {

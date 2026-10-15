@@ -17,6 +17,9 @@ function compact<T extends Record<string, unknown>>(doc: T): T {
 
 export const SITE_SETTINGS_ID = "siteSettings";
 
+/** The homepage opening image shipped with the code, uploaded by the tool into Site settings. */
+export const starterHeroImage = site.heroImage ? { path: site.heroImage.src, filename: "hero-hotel-dusk.jpg" } : null;
+
 export function starterSiteSettings(): StarterDocument {
   return compact({
     _id: SITE_SETTINGS_ID,

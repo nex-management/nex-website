@@ -39,6 +39,13 @@ function imageRef(img: SanityImage, width: number, height: number, altFallback =
   return { src: urlFor(img, width, height), alt: img.alt ?? altFallback, width, height, unoptimized: true };
 }
 
+/** The homepage opening image: two sizes so phones don't download the 2400px file. */
+function heroImageRef(img: SanityImage): ImageRef | null {
+  const ref = imageRef(img, 2400, 1350, "");
+  if (!ref) return null;
+  return { ...ref, srcSet: `${urlFor(img!, 1200, 675)} 1200w, ${urlFor(img!, 2400, 1350)} 2400w` };
+}
+
 function mapHotel(h: Record<string, unknown>): Hotel {
   const gallery = Array.isArray(h.gallery) ? (h.gallery as SanityImage[]) : [];
   return {
@@ -89,7 +96,7 @@ function mapSettings(s: Record<string, unknown>): SiteSettings {
     schedulingUrl: (s.schedulingUrl as string) || null,
     linkedinUrl: (s.linkedinUrl as string) || null,
     investorLoginUrl: (s.investorLoginUrl as string) || null,
-    heroImage: imageRef(s.heroImage as SanityImage, 2400, 1350, "Nex Management hotel"),
+    heroImage: heroImageRef(s.heroImage as SanityImage),
     videoUrl: (s.videoUrl as string) || null,
     videoPoster: imageRef(s.videoPoster as SanityImage, 1600, 900),
     statsAsOf: (s.statsAsOf as string) || null,

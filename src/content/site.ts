@@ -22,6 +22,8 @@ export const site: SiteSettings = {
   investorLoginUrl: null,
   videoUrl: "https://www.youtube.com/watch?v=iqNkrzyD-As",
   videoPoster: null,
+  // Homepage opening image: set to { src, srcSet, alt, width, height, unoptimized: true }
+  // once the files are in public/images/hero/ (two sizes: 1200 and 2400 px wide).
   heroImage: null,
   statsAsOf: null,
   legalDisclaimer:

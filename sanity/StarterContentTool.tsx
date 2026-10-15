@@ -13,6 +13,7 @@ import { Box, Button, Card, Flex, Heading, Stack, Text } from "@sanity/ui";
 import { apiVersion } from "./env";
 import {
   starterFinancialStrength,
+  starterHeroImage,
   starterHotels,
   starterServices,
   starterSiteSettings,
@@ -74,9 +75,22 @@ export function StarterContentTool() {
       setLog([...lines]);
     };
     try {
-      const docs: StarterDocument[] = [starterSiteSettings(), starterFinancialStrength(), ...starterHotels(), ...starterTestimonials(), ...starterServices()].filter(
+      const docs: StarterDocument[] = [starterFinancialStrength(), ...starterHotels(), ...starterTestimonials(), ...starterServices()].filter(
         (d) => !existing.has(d._id),
       );
+
+      const settings = starterSiteSettings();
+      if (!existing.has(settings._id)) {
+        if (starterHeroImage) {
+          const res = await fetch(starterHeroImage.path);
+          if (!res.ok) throw new Error(`Could not load the opening image ${starterHeroImage.path} (${res.status}).`);
+          const asset = await client.assets.upload("image", await res.blob(), { filename: starterHeroImage.filename, contentType: "image/jpeg" });
+          say("Uploaded the homepage opening image");
+          docs.push({ ...settings, heroImage: { _type: "image", asset: { _type: "reference", _ref: asset._id } } });
+        } else {
+          docs.push(settings);
+        }
+      }
 
       for (const member of starterTeam()) {
         if (existing.has(member.doc._id)) continue;

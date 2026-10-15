@@ -10,18 +10,32 @@ export async function Hero() {
     <section className="relative flex min-h-[760px] items-center overflow-hidden bg-ink text-white">
       {site.heroImage ? (
         <>
-          <Image
-            src={site.heroImage.src}
-            alt={site.heroImage.alt}
-            unoptimized={site.heroImage.unoptimized}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
+          {site.heroImage.srcSet ? (
+            // Pre-sized files (local or Sanity's CDN): served as-is, no image optimizer.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={site.heroImage.src}
+              srcSet={site.heroImage.srcSet}
+              sizes="100vw"
+              alt={site.heroImage.alt}
+              fetchPriority="high"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover object-[65%_50%] md:object-center"
+            />
+          ) : (
+            <Image
+              src={site.heroImage.src}
+              alt={site.heroImage.alt}
+              unoptimized={site.heroImage.unoptimized}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+          )}
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,21,15,0.94)_0%,rgba(22,21,15,0.82)_38%,rgba(22,21,15,0.45)_62%,rgba(22,21,15,0.10)_100%)]"
+            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,21,15,0.93)_0%,rgba(22,21,15,0.88)_55%,rgba(22,21,15,0.6)_100%)] md:bg-[linear-gradient(90deg,rgba(22,21,15,0.94)_0%,rgba(22,21,15,0.82)_38%,rgba(22,21,15,0.45)_62%,rgba(22,21,15,0.10)_100%)]"
           />
         </>
       ) : (
