@@ -2,6 +2,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { CeoQuote } from "@/components/home/CeoQuote";
 import { Contact } from "@/components/home/Contact";
+import { FinancialStrength } from "@/components/home/FinancialStrength";
 import { Hero } from "@/components/home/Hero";
 import { Partner } from "@/components/home/Partner";
 import { Portfolio } from "@/components/home/Portfolio";
@@ -23,6 +24,7 @@ export default function HomePage() {
         <Services />
         <Portfolio />
         <TrackRecord />
+        <FinancialStrength />
         <CeoQuote />
         <Partner />
         <Testimonials />

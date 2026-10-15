@@ -1,9 +1,9 @@
 import { getHomeContent, getSiteSettings } from "@/content";
 import { Eyebrow, Heading } from "@/components/ui/Typography";
 
-export function TrackRecord() {
+export async function TrackRecord() {
   const { trackRecord } = getHomeContent();
-  const site = getSiteSettings();
+  const site = await getSiteSettings();
   const { caseStudy } = trackRecord;
 
   const propertyName =

@@ -9,9 +9,9 @@ export function youtubeId(url: string | null): string | null {
   return match ? match[1] : null;
 }
 
-export function Video() {
+export async function Video() {
   const { video } = getHomeContent();
-  const site = getSiteSettings();
+  const site = await getSiteSettings();
   const id = youtubeId(site.videoUrl);
 
   if (!id && !site.showPlaceholders) return null;

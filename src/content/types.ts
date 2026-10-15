@@ -13,6 +13,10 @@ export type ImageRef = {
   alt: string;
   width?: number;
   height?: number;
+  /** True for images an image CDN (Sanity) already serves resized – skips Next's own optimizer. */
+  unoptimized?: boolean;
+  /** Optional responsive candidates ("url 1200w, url 2400w") for full-width images. */
+  srcSet?: string;
 };
 
 export type Link = {
@@ -91,6 +95,8 @@ export type Service = {
   slug: string;
   title: string;
   description: string;
+  /** Longer paragraph for the Services page. */
+  details: string | null;
   icon: ServiceIcon;
 };
 
@@ -102,8 +108,12 @@ export type Hotel = {
   type: HotelType;
   address: string;
   city: string;
+  /** Brand / franchise, e.g. "Wyndham Hotels & Resorts". null = independent. */
+  brand: string | null;
   highlights: string[];
+  description: string | null;
   image: ImageRef | null;
+  gallery: ImageRef[];
   rooms: number | null;
   managedSince: number | null;
   ownership: "Owned" | "Managed" | null;
@@ -137,6 +147,45 @@ export type TrackRecordContent = {
   };
 };
 
+/** A headline figure in the "Financial strength" section. */
+export type FinancialMetric = {
+  value: string;
+  label: string;
+  note: string | null;
+};
+
+/** How a comparison chart formats its axis ticks. */
+export type ChartFormat = "multiple" | "currency" | "percent";
+
+export type ComparisonBar = {
+  label: string;
+  /** Numeric value used for the bar height. */
+  value: number;
+  /** Value as shown above the bar, e.g. "$6.87M". */
+  display: string;
+  /** The bar that carries the message (gold); the other is the reference (grey). */
+  emphasis: boolean;
+};
+
+export type ComparisonChart = {
+  title: string;
+  caption: string;
+  format: ChartFormat;
+  /** Top of the axis, in the chart's unit (e.g. 3 for "3x", 8 for "$8M"). */
+  max: number;
+  bars: ComparisonBar[];
+};
+
+export type FinancialStrengthContent = {
+  eyebrow: string;
+  heading: string;
+  /** Source and period of the figures, e.g. "Trailing twelve months through June 2026…". */
+  intro: string;
+  metrics: FinancialMetric[];
+  charts: ComparisonChart[];
+  hidden: boolean;
+};
+
 export type TeamGroup = "leadership" | "operations";
 
 export type TeamMember = {
@@ -166,6 +215,7 @@ export type Testimonial = {
   /** null = name still to be confirmed with the client. */
   name: string | null;
   role: string;
+  company: string | null;
 };
 
 export type PartnerTrack = {

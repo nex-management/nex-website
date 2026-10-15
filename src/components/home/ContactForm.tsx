@@ -9,7 +9,16 @@ const labelClass = "text-xs font-bold uppercase tracking-[0.12em] text-body";
 const inputClass =
   "h-12 rounded-[2px] border border-line-3 bg-white px-3.5 text-[15px] text-ink placeholder:text-muted-3";
 
-export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
+export function ContactForm({
+  fallbackEmail,
+  topics,
+  defaultTopic,
+}: {
+  fallbackEmail: string;
+  /** Optional "What is this about?" choices; omitted on the homepage form. */
+  topics?: { value: string; label: string }[];
+  defaultTopic?: string;
+}) {
   const [status, setStatus] = useState<Status>({ state: "idle" });
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -75,6 +84,21 @@ export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
         </label>
         <input id="contact-email" name="email" type="email" autoComplete="email" required placeholder="you@company.com" className={inputClass} />
       </div>
+      {topics && topics.length > 0 ? (
+        <div className="flex flex-col gap-2">
+          <label htmlFor="contact-topic" className={labelClass}>
+            What is this about?
+          </label>
+          <select id="contact-topic" name="topic" defaultValue={defaultTopic ?? ""} className={`${inputClass} appearance-none`}>
+            <option value="">Select…</option>
+            {topics.map((t) => (
+              <option key={t.value} value={t.value}>
+                {t.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      ) : null}
       <div className="flex flex-col gap-2">
         <label htmlFor="contact-message" className={labelClass}>
           Message

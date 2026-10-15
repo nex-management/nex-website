@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-export default function PrivacyPage() {
-  const site = getSiteSettings();
+export default async function PrivacyPage() {
+  const site = await getSiteSettings();
 
   return (
     <>

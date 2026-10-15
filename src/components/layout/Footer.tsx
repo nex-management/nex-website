@@ -5,8 +5,8 @@ import { getNavigation, getSiteSettings } from "@/content";
 
 const footerLink = "text-sm text-sand-2 no-underline transition-colors hover:text-white";
 
-export function Footer() {
-  const site = getSiteSettings();
+export async function Footer() {
+  const site = await getSiteSettings();
   const { footer } = getNavigation();
 
   return (

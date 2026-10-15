@@ -13,10 +13,9 @@ export const metadata: Metadata = {
     "The professionals behind Nex Management bring decades of combined experience in hospitality operations, real estate, and financial management.",
 };
 
-export default function TeamPage() {
+export default async function TeamPage() {
   const { teamIntro, teamGroups, perspectivesIntro, careers } = getTeamPageContent();
-  const team = getTeam();
-  const site = getSiteSettings();
+  const [team, site] = await Promise.all([getTeam(), getSiteSettings()]);
   const withPerspective = team.filter((member) => member.perspective);
 
   return (
@@ -55,6 +54,7 @@ export default function TeamPage() {
                           <Image
                             src={member.photo.src}
                             alt={member.photo.alt}
+                            unoptimized={member.photo.unoptimized}
                             width={member.photo.width ?? 800}
                             height={member.photo.height ?? 1000}
                             sizes="(min-width: 1280px) 380px, (min-width: 768px) 50vw, 100vw"
@@ -126,6 +126,7 @@ export default function TeamPage() {
                       <Image
                         src={member.photo.src}
                         alt=""
+                        unoptimized={member.photo.unoptimized}
                         width={160}
                         height={160}
                         sizes="80px"

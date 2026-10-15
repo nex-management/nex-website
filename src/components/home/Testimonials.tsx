@@ -1,9 +1,9 @@
-import { getHomeContent, getSiteSettings } from "@/content";
+import { getHomeContent, getSiteSettings, getTestimonials } from "@/content";
 import { SectionIntro } from "@/components/ui/Typography";
 
-export function Testimonials() {
-  const { testimonialsIntro, testimonials } = getHomeContent();
-  const site = getSiteSettings();
+export async function Testimonials() {
+  const { testimonialsIntro } = getHomeContent();
+  const [testimonials, site] = await Promise.all([getTestimonials(), getSiteSettings()]);
 
   return (
     <section aria-labelledby="testimonials-heading" className="bg-white">

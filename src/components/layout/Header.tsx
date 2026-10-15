@@ -7,8 +7,8 @@ import { Icon } from "@/components/ui/Icon";
 const linkClass =
   "label-caps py-2.5 text-ink no-underline transition-colors hover:text-gold-text";
 
-export function Header({ currentPath = "/" }: { currentPath?: string }) {
-  const site = getSiteSettings();
+export async function Header({ currentPath = "/" }: { currentPath?: string }) {
+  const site = await getSiteSettings();
   const { main } = getNavigation();
 
   const isCurrent = (href: string) => href === currentPath;
@@ -56,7 +56,7 @@ export function Header({ currentPath = "/" }: { currentPath?: string }) {
         <div className="hidden items-center gap-6 lg:flex">
           {investorLogin}
           <Link
-            href="/#contact"
+            href="/contact"
             className="label-caps rounded-[2px] bg-gold px-6 py-3.5 text-ink no-underline transition-colors hover:bg-[#b8962e]"
           >
             Get in Touch
@@ -91,7 +91,7 @@ export function Header({ currentPath = "/" }: { currentPath?: string }) {
             <div className="flex flex-col gap-4 pt-5">
               {investorLogin}
               <Link
-                href="/#contact"
+                href="/contact"
                 className="label-caps rounded-[2px] bg-gold px-6 py-4 text-center text-ink no-underline"
               >
                 Get in Touch

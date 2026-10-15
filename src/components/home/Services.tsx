@@ -1,9 +1,10 @@
-import { getHomeContent } from "@/content";
+import { getHomeContent, getServices } from "@/content";
 import { Icon } from "@/components/ui/Icon";
 import { SectionIntro } from "@/components/ui/Typography";
 
-export function Services() {
-  const { servicesIntro, services } = getHomeContent();
+export async function Services() {
+  const { servicesIntro } = getHomeContent();
+  const services = await getServices();
 
   return (
     <section id="services" className="scroll-mt-20 border-y border-line bg-cream">

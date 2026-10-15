@@ -1,6 +1,7 @@
 import type {
   AboutContent,
   CeoQuote,
+  FinancialStrengthContent,
   PartnerContent,
   Service,
   Stat,
@@ -16,8 +17,8 @@ export const hero = {
   subheading: "From underperforming to unstoppable.",
   intro:
     "Nex Management is a South Florida-based hospitality company. We own and operate multiple branded hotels, and we partner with hotel owners who want stronger results – whether through professional management, property improvement projects, or strategic acquisitions.",
-  primaryCta: { label: "For Investors", href: "#partner" },
-  secondaryCta: { label: "For Hotel Owners", href: "#partner" },
+  primaryCta: { label: "For Investors", href: "/partner#investors" },
+  secondaryCta: { label: "For Hotel Owners", href: "/partner#owners" },
 };
 
 export const stats: Stat[] = [
@@ -70,6 +71,7 @@ export const services: Service[] = [
     title: "Hotel Management",
     description:
       "Full-service operations management for branded and independent hotels. From front desk to financials, we handle it all.",
+    details: null,
     icon: "building",
   },
   {
@@ -77,6 +79,7 @@ export const services: Service[] = [
     title: "Acquisitions & Due Diligence",
     description:
       "Thinking about buying a hotel? We provide in-depth due diligence reports so you know exactly what you're getting into before you close.",
+    details: null,
     icon: "search",
   },
   {
@@ -84,6 +87,7 @@ export const services: Service[] = [
     title: "PIP Projects",
     description:
       "We manage Property Improvement Plans from start to finish – scope, contractors, brand compliance, and delivery on time and on budget.",
+    details: null,
     icon: "house",
   },
   {
@@ -91,6 +95,7 @@ export const services: Service[] = [
     title: "Accounting Services",
     description:
       "Hotel-specific financial reporting, bookkeeping, and oversight designed for owners who want full visibility into their numbers.",
+    details: null,
     icon: "ledger",
   },
   {
@@ -98,6 +103,7 @@ export const services: Service[] = [
     title: "Consultation",
     description:
       "Strategic guidance for hotel owners and investors looking to improve performance, reposition a property, or plan their next move.",
+    details: null,
     icon: "compass",
   },
 ];
@@ -156,6 +162,41 @@ export const trackRecord: TrackRecordContent = {
   },
 };
 
+export const financialStrength: FinancialStrengthContent = {
+  eyebrow: "By the numbers",
+  heading: "Portfolio financial strength",
+  intro: "Trailing twelve months through June 2026, from property-level P&Ls and current mortgage statements.",
+  metrics: [
+    { value: "2.48x", label: "Blended DSCR", note: "Banks typically require 1.20x–1.25x" },
+    { value: "$6.87M", label: "TTM Portfolio NOI", note: "Up 15.3% from $5.96M" },
+    { value: "36.5%", label: "Stabilized NOI Margin", note: "Up from 33.6% prior year" },
+    { value: "+9.6%", label: "2026 YTD Revenue Growth", note: "Four stabilized hotels, ADR +11.1%" },
+  ],
+  charts: [
+    {
+      title: "Blended debt service coverage",
+      caption: "Portfolio DSCR of 2.48x is nearly double the 1.25x lender minimum.",
+      format: "multiple",
+      max: 3,
+      bars: [
+        { label: "Bank minimum", value: 1.25, display: "1.25x", emphasis: false },
+        { label: "Our blended", value: 2.48, display: "2.48x", emphasis: true },
+      ],
+    },
+    {
+      title: "Portfolio NOI growth",
+      caption: "Trailing twelve months across the portfolio, up 15.3% year over year.",
+      format: "currency",
+      max: 8,
+      bars: [
+        { label: "Prior TTM", value: 5.96, display: "$5.96M", emphasis: false },
+        { label: "Current TTM", value: 6.87, display: "$6.87M", emphasis: true },
+      ],
+    },
+  ],
+  hidden: false,
+};
+
 export const ceoQuote: CeoQuote = {
   quote:
     "Our mission is simple: create measurable positive change from the very first month of management. We are relentlessly focused on execution and results.",
@@ -184,7 +225,7 @@ export const partner: PartnerContent = {
         "3:1 bank leverage on every dollar invested",
         "Owners who invest alongside you",
       ],
-      cta: { label: "Explore investments", href: "#contact" },
+      cta: { label: "Explore investments", href: "/contact?topic=invest" },
       variant: "primary",
     },
     {
@@ -196,7 +237,7 @@ export const partner: PartnerContent = {
         "Access to capital for renovations and expansions",
         "Wyndham brand standards and PIP expertise",
       ],
-      cta: { label: "Discuss a partnership", href: "#contact" },
+      cta: { label: "Discuss a partnership", href: "/contact?topic=management" },
       variant: "secondary",
     },
   ],
@@ -214,18 +255,21 @@ export const testimonials: Testimonial[] = [
       "Nex delivered on their promise from day one. Our revenue is up 40% and our operational headaches are gone. A true game-changer.",
     name: null,
     role: "Hotel Owner, South Florida",
+    company: null,
   },
   {
     quote:
       "The professionalism and transparency of their team are unmatched. We finally have clear insight into our property's performance and a strategy that works.",
     name: "Jacob B.",
     role: "Property Owner",
+    company: null,
   },
   {
     quote:
       "We were skeptical, but the results are undeniable. They turned our underperforming hotel into a local market leader in under a year. I'd recommend them to any owner.",
     name: "M. Jilau",
     role: "Asset Manager",
+    company: null,
   },
 ];
 

@@ -3,9 +3,9 @@ import { Icon } from "@/components/ui/Icon";
 import { SectionIntro } from "@/components/ui/Typography";
 import { PortfolioGrid } from "./PortfolioGrid";
 
-export function Portfolio() {
+export async function Portfolio() {
   const { portfolioIntro, strategyPillars } = getHomeContent();
-  const hotels = getHotels();
+  const hotels = await getHotels();
   const types = getHotelTypes();
 
   return (
