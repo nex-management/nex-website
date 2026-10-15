@@ -22,9 +22,16 @@ export const site: SiteSettings = {
   investorLoginUrl: null,
   videoUrl: "https://www.youtube.com/watch?v=iqNkrzyD-As",
   videoPoster: null,
-  // Homepage opening image: set to { src, srcSet, alt, width, height, unoptimized: true }
-  // once the files are in public/images/hero/ (two sizes: 1200 and 2400 px wide).
-  heroImage: null,
+  // Homepage opening image (AI-generated placeholder until a photo of a Nex hotel is supplied;
+  // replaceable in the Studio under Site settings → Homepage media). Two sizes so phones load the small one.
+  heroImage: {
+    src: "/images/hero/hotel-dusk-1776.jpg",
+    srcSet: "/images/hero/hotel-dusk-1200.jpg 1200w, /images/hero/hotel-dusk-1776.jpg 1776w",
+    alt: "",
+    width: 1776,
+    height: 896,
+    unoptimized: true,
+  },
   statsAsOf: null,
   legalDisclaimer:
     "This website is for informational purposes only. All investment opportunities involve risk. Please consult a financial advisor before making any investment decisions.",
