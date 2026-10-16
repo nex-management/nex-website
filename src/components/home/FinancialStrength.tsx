@@ -4,11 +4,11 @@ import { SectionIntro } from "@/components/ui/Typography";
 
 export async function FinancialStrength() {
   const content = await getFinancialStrength();
-  if (content.hidden) return null;
+  if (content.hidden || (content.metrics.length === 0 && content.charts.length === 0)) return null;
 
   return (
     <section id="financial-strength" className="scroll-mt-20 border-b border-line bg-cream">
-      <div className="container-x flex flex-col gap-12 py-[110px]">
+      <div className="container-x section-y flex flex-col gap-12">
         <SectionIntro eyebrow={content.eyebrow} heading={content.heading} lead={content.intro} tone="cream" />
 
         {content.metrics.length > 0 ? (

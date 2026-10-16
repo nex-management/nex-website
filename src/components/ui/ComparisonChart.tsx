@@ -55,7 +55,7 @@ export function ComparisonChart({ chart, id }: { chart: ComparisonChartData; id:
           return (
             <g key={i}>
               <line x1={pad.left} x2={width - pad.right} y1={y} y2={y} stroke={GRID} strokeWidth={1} strokeDasharray={i === 0 ? undefined : "3 4"} />
-              <text x={pad.left - 10} y={y + 4} textAnchor="end" fontSize={12} fill={MUTED} fontFamily="inherit">
+              <text x={pad.left - 10} y={y + 4} textAnchor="end" fontSize={13} fill={MUTED} fontFamily="inherit">
                 {formatTick(value, chart.format)}
               </text>
             </g>
@@ -73,10 +73,10 @@ export function ComparisonChart({ chart, id }: { chart: ComparisonChartData; id:
               <path d={d} fill={bar.emphasis ? GOLD : REFERENCE}>
                 <title>{`${bar.label}: ${bar.display}`}</title>
               </path>
-              <text x={x + barW / 2} y={y - 9} textAnchor="middle" fontSize={15} fontWeight={700} fill={INK} fontFamily="inherit">
+              <text x={x + barW / 2} y={y - 9} textAnchor="middle" fontSize={16} fontWeight={700} fill={INK} fontFamily="inherit">
                 {bar.display}
               </text>
-              <text x={x + barW / 2} y={baseline + 20} textAnchor="middle" fontSize={13} fill={MUTED} fontFamily="inherit">
+              <text x={x + barW / 2} y={baseline + 21} textAnchor="middle" fontSize={14} fill={MUTED} fontFamily="inherit">
                 {bar.label}
               </text>
             </g>
