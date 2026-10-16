@@ -1,48 +1,28 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getSiteSettings } from "@/content";
 import { contactPage } from "@/content/pages";
+import { pageMeta } from "@/lib/seo";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { ContactForm } from "@/components/home/ContactForm";
+import { ContactFormWithTopic } from "@/components/home/ContactFormWithTopic";
 import { TextLink } from "@/components/ui/Button";
 import { Eyebrow, Heading } from "@/components/ui/Typography";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: contactPage.intro,
-};
+export const metadata = pageMeta({ title: "Contact", description: contactPage.intro, path: "/contact" });
 
 const detailLabel = "text-[11px] font-bold uppercase tracking-[0.18em] text-muted-2";
 
-/** Reads the ?topic= query parameter (runtime data) and renders the form with it preselected. */
-async function FormWithTopic({
-  searchParams,
-  fallbackEmail,
-}: {
-  searchParams: Promise<{ topic?: string | string[] }>;
-  fallbackEmail: string;
-}) {
-  const { topic } = await searchParams;
-  const requested = Array.isArray(topic) ? topic[0] : topic;
-  const defaultTopic = contactPage.topics.some((t) => t.value === requested) ? requested : undefined;
-  return <ContactForm fallbackEmail={fallbackEmail} topics={contactPage.topics} defaultTopic={defaultTopic} />;
-}
-
-export default async function ContactPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ topic?: string | string[] }>;
-}) {
+export default async function ContactPage() {
   const site = await getSiteSettings();
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.address.line1}, ${site.address.line2}`)}`;
 
   return (
     <>
       <Header currentPath="/contact" />
-      <main className="flex flex-1 flex-col">
+      <main id="main" tabIndex={-1} className="flex flex-1 flex-col outline-none">
         <section className="bg-white">
-          <div className="container-x flex flex-wrap gap-x-24 gap-y-14 pb-[120px] pt-24">
+          <div className="container-x section-y flex flex-wrap gap-x-24 gap-y-14">
             <div className="flex min-w-0 flex-[1_1_23.75rem] flex-col gap-7">
               <Eyebrow>{contactPage.eyebrow}</Eyebrow>
               <Heading as="h1" size="xl" className="!text-[clamp(2.875rem,5.2vw,4.75rem)]">
@@ -58,7 +38,12 @@ export default async function ContactPage({
                     <br />
                     {site.address.line2}
                     <br />
-                    <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="text-gold-text">
+                    <a
+                      href={mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gold-text underline decoration-gold underline-offset-4 hover:text-ink"
+                    >
                       Open in Maps
                     </a>
                   </dd>
@@ -71,31 +56,23 @@ export default async function ContactPage({
                     </a>
                   </dd>
                 </div>
-                {site.phone || site.showPlaceholders ? (
+                {site.phone ? (
                   <div className="flex flex-col gap-1">
                     <dt className={detailLabel}>Phone</dt>
                     <dd>
-                      {site.phone ? (
-                        <a href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} className="text-ink">
-                          {site.phone}
-                        </a>
-                      ) : (
-                        <span className="text-muted-3">[PHONE NUMBER]</span>
-                      )}
+                      <a href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} className="text-ink">
+                        {site.phone}
+                      </a>
                     </dd>
                   </div>
                 ) : null}
-                {site.schedulingUrl || site.showPlaceholders ? (
+                {site.schedulingUrl ? (
                   <div className="flex flex-col gap-1.5 pt-2">
                     <dt className="text-[15px] font-bold text-ink">Prefer to schedule directly?</dt>
                     <dd>
-                      {site.schedulingUrl ? (
-                        <TextLink href={site.schedulingUrl} target="_blank" rel="noopener noreferrer">
-                          Book a private consultation →
-                        </TextLink>
-                      ) : (
-                        <span className="label-caps text-muted-3">[Booking link pending]</span>
-                      )}
+                      <TextLink href={site.schedulingUrl} target="_blank" rel="noopener noreferrer">
+                        Book a private consultation
+                      </TextLink>
                     </dd>
                   </div>
                 ) : null}
@@ -103,7 +80,7 @@ export default async function ContactPage({
             </div>
 
             <Suspense fallback={<ContactForm fallbackEmail={site.email} topics={contactPage.topics} />}>
-              <FormWithTopic searchParams={searchParams} fallbackEmail={site.email} />
+              <ContactFormWithTopic fallbackEmail={site.email} topics={contactPage.topics} />
             </Suspense>
           </div>
         </section>

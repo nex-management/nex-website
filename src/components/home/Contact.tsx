@@ -11,7 +11,7 @@ export async function Contact() {
 
   return (
     <section id="contact" className="scroll-mt-20 bg-white">
-      <div className="container-x flex flex-wrap gap-x-24 gap-y-14 py-[120px]">
+      <div className="container-x section-y flex flex-wrap gap-x-24 gap-y-14">
         <div className="flex min-w-0 flex-[1_1_23.75rem] flex-col gap-7">
           <Eyebrow>{contact.eyebrow}</Eyebrow>
           <Heading>{contact.heading}</Heading>
@@ -34,31 +34,23 @@ export async function Contact() {
                 </a>
               </dd>
             </div>
-            {site.phone || site.showPlaceholders ? (
+            {site.phone ? (
               <div className="flex flex-col gap-1">
                 <dt className={detailLabel}>Phone</dt>
                 <dd>
-                  {site.phone ? (
-                    <a href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} className="text-ink">
-                      {site.phone}
-                    </a>
-                  ) : (
-                    <span className="text-muted-3">[PHONE NUMBER]</span>
-                  )}
+                  <a href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} className="text-ink">
+                    {site.phone}
+                  </a>
                 </dd>
               </div>
             ) : null}
-            {site.schedulingUrl || site.showPlaceholders ? (
+            {site.schedulingUrl ? (
               <div className="flex flex-col gap-1.5 pt-2">
                 <dt className="text-[15px] font-bold text-ink">{contact.scheduleHeading}</dt>
                 <dd>
-                  {site.schedulingUrl ? (
-                    <TextLink href={site.schedulingUrl} target="_blank" rel="noopener noreferrer">
-                      {contact.scheduleLabel}
-                    </TextLink>
-                  ) : (
-                    <span className="label-caps text-muted-3">[Booking link pending]</span>
-                  )}
+                  <TextLink href={site.schedulingUrl} target="_blank" rel="noopener noreferrer">
+                    {contact.scheduleLabel}
+                  </TextLink>
                 </dd>
               </div>
             ) : null}

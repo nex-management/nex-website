@@ -285,5 +285,5 @@ export const contact = {
   heading: "We'd love to connect.",
   text: "Whether you're looking for a management partner, exploring an acquisition, or need guidance on a PIP project – reach out and we'll get back to you promptly.",
   scheduleHeading: "Prefer to schedule directly?",
-  scheduleLabel: "Book a private consultation →",
+  scheduleLabel: "Book a private consultation",
 };

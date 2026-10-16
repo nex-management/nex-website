@@ -17,6 +17,8 @@ export type ImageRef = {
   unoptimized?: boolean;
   /** Optional responsive candidates ("url 1200w, url 2400w") for full-width images. */
   srcSet?: string;
+  /** The same candidates as WebP files, offered first to browsers that support them. */
+  srcSetWebp?: string;
 };
 
 export type Link = {
@@ -59,13 +61,6 @@ export type SiteSettings = {
   /** "As of" date for the key figures, e.g. "June 2026". */
   statsAsOf: string | null;
   legalDisclaimer: string;
-  copyrightYear: number;
-  /**
-   * While true, missing content is rendered as visible bracketed placeholders
-   * (e.g. "[PHONE NUMBER]") so reviewers can see what is still pending.
-   * Set to false at launch.
-   */
-  showPlaceholders: boolean;
 };
 
 export type NavItem = Link & { current?: boolean };

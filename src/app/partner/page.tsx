@@ -1,16 +1,13 @@
-import type { Metadata } from "next";
 import { getSiteSettings, getStats } from "@/content";
 import { partnerPage } from "@/content/pages";
+import { pageMeta } from "@/lib/seo";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { ButtonLink } from "@/components/ui/Button";
 import { CtaBand, PageIntro } from "@/components/ui/PageBlocks";
 import { DotList, Eyebrow, Heading } from "@/components/ui/Typography";
 
-export const metadata: Metadata = {
-  title: "Partner With Us",
-  description: partnerPage.intro,
-};
+export const metadata = pageMeta({ title: "Partner With Us", description: partnerPage.intro, path: "/partner" });
 
 function Track({
   track,
@@ -21,7 +18,7 @@ function Track({
 }) {
   return (
     <section id={track.id} className={`scroll-mt-24 ${tone === "cream" ? "border-y border-line bg-cream" : "bg-white"}`}>
-      <div className="container-x flex flex-wrap items-start gap-x-20 gap-y-10 py-[100px]">
+      <div className="container-x section-y flex flex-wrap items-start gap-x-20 gap-y-10">
         <div className="flex min-w-0 flex-[1_1_24rem] flex-col gap-5">
           <Eyebrow tone={tone}>{track.eyebrow}</Eyebrow>
           <Heading>{track.heading}</Heading>
@@ -48,35 +45,37 @@ export default async function PartnerPage() {
   return (
     <>
       <Header currentPath="/partner" />
-      <main className="flex flex-1 flex-col">
+      <main id="main" tabIndex={-1} className="flex flex-1 flex-col outline-none">
         <PageIntro eyebrow={partnerPage.eyebrow} heading={partnerPage.heading} lead={partnerPage.intro} />
 
-        <section aria-label="Key figures" className="border-b border-gold/35 bg-ink-2 text-white">
-          <div className="container-x py-12">
-            <dl className="grid grid-cols-[repeat(auto-fit,minmax(13.75rem,1fr))] gap-8">
-              {stats.map((stat) => (
-                <div key={stat.label} className="flex flex-col gap-2 border-l border-gold/45 pl-6">
-                  <dd className="order-1 font-display text-[48px] font-semibold leading-none text-gold">{stat.value}</dd>
-                  <dt className="order-2 text-xs font-semibold uppercase tracking-[0.14em] text-sand-2">{stat.label}</dt>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </section>
+        {stats.length > 0 ? (
+          <section aria-label="Key figures" className="border-b border-gold/35 bg-ink-2 text-white">
+            <div className="container-x py-12">
+              <dl className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                {stats.map((stat) => (
+                  <div key={stat.label} className="flex flex-col gap-2 border-l border-gold/45 pl-6">
+                    <dt className="order-2 text-xs font-semibold uppercase tracking-[0.14em] text-sand-2">{stat.label}</dt>
+                    <dd className="order-1 font-display text-[48px] font-semibold leading-none text-gold">{stat.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </section>
+        ) : null}
 
         <Track track={partnerPage.investors} tone="light" />
         <Track track={partnerPage.owners} tone="cream" />
 
         <section className="bg-white">
-          <div className="container-x flex flex-col gap-12 py-[100px]">
+          <div className="container-x section-y flex flex-col gap-12">
             <div className="flex max-w-[40rem] flex-col gap-[18px]">
               <Eyebrow>{partnerPage.process.eyebrow}</Eyebrow>
               <Heading>{partnerPage.process.heading}</Heading>
             </div>
-            <ol className="grid list-none grid-cols-1 gap-x-12 gap-y-10 p-0 md:grid-cols-3">
+            <ol className="grid list-none grid-cols-[repeat(auto-fit,minmax(min(15rem,100%),1fr))] gap-x-12 gap-y-10 p-0">
               {partnerPage.process.steps.map((step, index) => (
                 <li key={step.title} className="flex flex-col gap-3.5 border-t border-line pt-6">
-                  <p className="font-display text-[34px] font-semibold leading-none text-gold" aria-hidden="true">
+                  <p className="font-display text-[34px] font-semibold leading-none text-gold-text" aria-hidden="true">
                     {String(index + 1).padStart(2, "0")}
                   </p>
                   <h3 className="text-lg font-bold leading-[1.3] text-ink">{step.title}</h3>
@@ -84,7 +83,7 @@ export default async function PartnerPage() {
                 </li>
               ))}
             </ol>
-            <p className="max-w-[56rem] text-xs leading-relaxed text-muted-3">{partnerPage.disclaimer}</p>
+            <p className="max-w-[56rem] text-xs leading-relaxed text-muted-2">{partnerPage.disclaimer}</p>
           </div>
         </section>
 

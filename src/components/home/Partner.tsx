@@ -8,7 +8,7 @@ export async function Partner() {
 
   return (
     <section id="partner" className="scroll-mt-20 border-y border-line bg-cream">
-      <div className="container-x flex flex-col gap-14 py-[110px]">
+      <div className="container-x section-y flex flex-col gap-14">
         <SectionIntro
           eyebrow={partner.eyebrow}
           heading={partner.heading}
@@ -17,12 +17,12 @@ export async function Partner() {
           align="stack"
         />
 
-        <ul className="grid list-none grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-6 p-0">
+        <ul className="grid list-none grid-cols-[repeat(auto-fit,minmax(min(20rem,100%),1fr))] gap-6 p-0">
           {partner.tracks.map((track) => (
             <li key={track.eyebrow}>
-              <article className="flex h-full flex-col gap-6 border border-line bg-white px-11 py-12">
+              <article className="flex h-full flex-col gap-6 border border-line bg-white px-6 py-8 sm:px-11 sm:py-12">
                 <Eyebrow className="!text-[11px] !tracking-[0.2em]">{track.eyebrow}</Eyebrow>
-                <h3 className="font-display text-[34px] font-semibold leading-[1.1] text-ink">{track.heading}</h3>
+                <h3 className="font-display text-[clamp(1.75rem,2.6vw,2.125rem)] font-semibold leading-[1.1] text-ink">{track.heading}</h3>
                 <p className="text-base leading-[1.7] text-muted">{track.text}</p>
                 <DotList items={track.bullets} size="md" />
                 <ButtonLink

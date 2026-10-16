@@ -8,7 +8,9 @@ export const client = sanityConfigured
       projectId,
       dataset,
       apiVersion,
-      useCdn: true,
+      // The site caches results itself (Next cache), so read fresh documents: a webhook
+      // revalidation must not pick up a not-yet-updated CDN copy.
+      useCdn: false,
       perspective: "published",
     })
   : null;

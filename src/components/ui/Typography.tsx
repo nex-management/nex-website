@@ -114,6 +114,7 @@ export function DotList({
   className?: string;
   size?: "sm" | "md";
 }) {
+  if (items.length === 0) return null;
   return (
     <ul
       className={`flex list-none flex-col border-t border-line p-0 text-body ${
@@ -131,9 +132,4 @@ export function DotList({
       ))}
     </ul>
   );
-}
-
-/** Bracketed placeholder shown while content is pending (hidden at launch). */
-export function Placeholder({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <span className={`text-muted-3 ${className}`}>[{children}]</span>;
 }

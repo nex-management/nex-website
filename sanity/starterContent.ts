@@ -40,7 +40,6 @@ export function starterSiteSettings(): StarterDocument {
     legalName: site.legalName,
     feiNumber: site.feiNumber,
     legalDisclaimer: site.legalDisclaimer,
-    showPlaceholders: site.showPlaceholders,
   });
 }
 

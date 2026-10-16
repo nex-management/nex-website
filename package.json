@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit",
+    "check": "npm run lint && npm run typecheck && npm run build"
+  },
+  "engines": {
+    "node": ">=22.12"
   },
   "dependencies": {
     "@sanity/icons": "^5.2.3",
@@ -17,11 +22,12 @@
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "sanity": "^6.19.0",
+    "server-only": "^0.0.1",
     "styled-components": "^6.6.0"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
-    "@types/node": "^20",
+    "@types/node": "^22.20.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

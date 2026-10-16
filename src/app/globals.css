@@ -58,9 +58,18 @@
   a {
     color: inherit;
   }
+  /* Keyboard focus ring: ink on light surfaces, gold on the dark bands (both ≥ 3:1 against their background). */
   :focus-visible {
-    outline: 2px solid var(--color-gold);
+    outline: 2px solid var(--color-ink);
     outline-offset: 2px;
+  }
+  :is(.bg-ink, .bg-ink-2, .bg-ink-4, .bg-ink-deep, .bg-black) :focus-visible {
+    outline-color: var(--color-gold);
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
   }
   ::selection {
     background: rgb(201 162 39 / 0.3);
@@ -101,5 +110,36 @@
   list-style: none;
   &::-webkit-details-marker {
     display: none;
+  }
+}
+
+/* Vertical rhythm for full-width sections: tighter on phones, roomier on desktop */
+@utility section-y {
+  padding-block: clamp(4.5rem, 8vw, 7.5rem);
+}
+
+/* Shorter bands (page intros, closing calls to action) */
+@utility band-y {
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+}
+
+/* "Skip to content" link: visually hidden until it receives keyboard focus */
+@utility skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--color-ink);
+  color: #ffffff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transform: translateY(-200%);
+  &:focus-visible {
+    transform: none;
+    outline-color: var(--color-gold);
   }
 }

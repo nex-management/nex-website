@@ -1,17 +1,15 @@
-import { getHomeContent, getSiteSettings } from "@/content";
+import { getHomeContent } from "@/content";
 import { Eyebrow, Heading } from "@/components/ui/Typography";
 
 export async function TrackRecord() {
   const { trackRecord } = getHomeContent();
-  const site = await getSiteSettings();
   const { caseStudy } = trackRecord;
 
-  const propertyName =
-    caseStudy.propertyName ?? (site.showPlaceholders ? "[Case study: PROPERTY NAME]" : "A Nex-managed property");
+  const propertyName = caseStudy.propertyName ?? "A typical Nex-managed property";
 
   return (
     <section id="track-record" className="scroll-mt-20 bg-ink text-white">
-      <div className="container-x flex flex-wrap items-center gap-x-20 gap-y-14 py-[120px]">
+      <div className="container-x section-y flex flex-wrap items-center gap-x-20 gap-y-14">
         <div className="flex min-w-0 flex-[1_1_27.5rem] flex-col gap-7">
           <Eyebrow tone="dark">{trackRecord.eyebrow}</Eyebrow>
           <Heading tone="dark">{trackRecord.heading}</Heading>
@@ -35,7 +33,10 @@ export async function TrackRecord() {
               <div className="flex items-baseline justify-between gap-4">
                 <p className="text-sm font-bold uppercase tracking-[0.06em] text-white">{metric.label}</p>
                 <p className="font-display text-[30px] font-semibold leading-none text-gold">
-                  {metric.before} → {metric.after}
+                  {metric.before}
+                  <span aria-hidden="true"> → </span>
+                  <span className="sr-only"> to </span>
+                  {metric.after}
                 </p>
               </div>
               <div className="flex flex-col gap-1.5" aria-hidden="true">

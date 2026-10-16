@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 
 /**
  * One document for the whole site: contact details, links, key figures,
- * the homepage opening image, the video, and launch switches.
+ * the homepage opening image and the video.
  */
 export const siteSettings = defineType({
   name: "siteSettings",
@@ -13,7 +13,6 @@ export const siteSettings = defineType({
     { name: "home", title: "Homepage media" },
     { name: "stats", title: "Key figures" },
     { name: "legal", title: "Legal & SEO" },
-    { name: "launch", title: "Launch" },
   ],
   fields: [
     defineField({ name: "email", title: "Contact email", type: "string", group: "contact", validation: (r) => r.required().email() }),
@@ -71,14 +70,6 @@ export const siteSettings = defineType({
     defineField({ name: "feiNumber", title: "FEI number", type: "string", group: "legal" }),
     defineField({ name: "legalDisclaimer", title: "Legal disclaimer (footer)", type: "text", rows: 3, group: "legal" }),
 
-    defineField({
-      name: "showPlaceholders",
-      title: "Show placeholders for missing content",
-      type: "boolean",
-      group: "launch",
-      description: "ON while the site is being reviewed: missing items appear as [PLACEHOLDERS]. Switch OFF before launch.",
-      initialValue: true,
-    }),
   ],
   preview: { prepare: () => ({ title: "Site settings" }) },
 });
