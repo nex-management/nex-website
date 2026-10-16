@@ -1,7 +1,6 @@
 /**
  * Copy for the inner pages (About, Services, Portfolio, Partner, Contact).
- * Everything here is drawn from the company's existing texts; facts that are
- * still pending from the client are marked as placeholders by the components.
+ * Everything here is drawn from the company's existing texts.
  */
 
 export const aboutPage = {
@@ -70,10 +69,11 @@ export const portfolioPage = {
 };
 
 export const hotelPage = {
-  backLabel: "← All properties",
+  backLabel: "All properties",
   factsHeading: "At a glance",
   highlightsHeading: "Our focus at this property",
   galleryHeading: "Photos",
+  othersHeading: "Other properties in the portfolio",
   cta: {
     heading: "Interested in this property or in working with Nex?",
     button: { label: "Contact us", href: "/contact" },

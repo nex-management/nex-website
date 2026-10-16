@@ -1,11 +1,12 @@
 import type { Hotel, HotelType } from "./types";
 
+/** Every type the filter can show, in display order; only types present in the portfolio are offered. */
 export const hotelTypes: HotelType[] = ["Airport", "Suburban", "Urban", "Boutique"];
 
 export const hotels: Hotel[] = [
   {
     slug: "la-quinta-miami-airport-east",
-    name: "La Quinta by Wyndham",
+    name: "La Quinta by Wyndham Miami Airport East",
     type: "Airport",
     address: "7401 NW 36th St, Miami, FL 33166",
     city: "Miami",
@@ -14,7 +15,8 @@ export const hotels: Hotel[] = [
     description: null,
     image: {
       src: "/images/hotels/la-quinta-miami-airport-east-1200.jpg",
-      srcSet: "/images/hotels/la-quinta-miami-airport-east-600.jpg 600w, /images/hotels/la-quinta-miami-airport-east-1200.jpg 1200w",
+      srcSet: "/images/hotels/la-quinta-miami-airport-east-600.jpg 600w, /images/hotels/la-quinta-miami-airport-east-900.jpg 900w, /images/hotels/la-quinta-miami-airport-east-1200.jpg 1200w",
+      srcSetWebp: "/images/hotels/la-quinta-miami-airport-east-600.webp 600w, /images/hotels/la-quinta-miami-airport-east-900.webp 900w, /images/hotels/la-quinta-miami-airport-east-1200.webp 1200w",
       alt: "La Quinta by Wyndham Miami Airport East – exterior",
       width: 1200,
       height: 750,
@@ -27,7 +29,7 @@ export const hotels: Hotel[] = [
   },
   {
     slug: "la-quinta-miami-airport-west",
-    name: "La Quinta by Wyndham",
+    name: "La Quinta by Wyndham Miami Airport West",
     type: "Airport",
     address: "3501 NW 42nd Ave, Miami, FL 33142",
     city: "Miami",
@@ -36,7 +38,8 @@ export const hotels: Hotel[] = [
     description: null,
     image: {
       src: "/images/hotels/la-quinta-miami-airport-west-1200.jpg",
-      srcSet: "/images/hotels/la-quinta-miami-airport-west-600.jpg 600w, /images/hotels/la-quinta-miami-airport-west-1200.jpg 1200w",
+      srcSet: "/images/hotels/la-quinta-miami-airport-west-600.jpg 600w, /images/hotels/la-quinta-miami-airport-west-900.jpg 900w, /images/hotels/la-quinta-miami-airport-west-1200.jpg 1200w",
+      srcSetWebp: "/images/hotels/la-quinta-miami-airport-west-600.webp 600w, /images/hotels/la-quinta-miami-airport-west-900.webp 900w, /images/hotels/la-quinta-miami-airport-west-1200.webp 1200w",
       alt: "La Quinta by Wyndham Miami Airport West – pool",
       width: 1200,
       height: 750,
@@ -49,7 +52,7 @@ export const hotels: Hotel[] = [
   },
   {
     slug: "la-quinta-plantation",
-    name: "La Quinta by Wyndham",
+    name: "La Quinta by Wyndham Plantation",
     type: "Suburban",
     address: "8101 Peters Rd, Plantation, FL 33328",
     city: "Plantation",
@@ -58,7 +61,8 @@ export const hotels: Hotel[] = [
     description: null,
     image: {
       src: "/images/hotels/la-quinta-plantation-1200.jpg",
-      srcSet: "/images/hotels/la-quinta-plantation-600.jpg 600w, /images/hotels/la-quinta-plantation-1200.jpg 1200w",
+      srcSet: "/images/hotels/la-quinta-plantation-600.jpg 600w, /images/hotels/la-quinta-plantation-900.jpg 900w, /images/hotels/la-quinta-plantation-1200.jpg 1200w",
+      srcSetWebp: "/images/hotels/la-quinta-plantation-600.webp 600w, /images/hotels/la-quinta-plantation-900.webp 900w, /images/hotels/la-quinta-plantation-1200.webp 1200w",
       alt: "La Quinta by Wyndham Plantation – entrance at dusk",
       width: 1200,
       height: 750,
@@ -71,7 +75,7 @@ export const hotels: Hotel[] = [
   },
   {
     slug: "la-quinta-coral-springs",
-    name: "La Quinta by Wyndham",
+    name: "La Quinta by Wyndham Coral Springs",
     type: "Suburban",
     address: "3100 N University Dr, Coral Springs, FL 33065",
     city: "Coral Springs",
@@ -80,8 +84,9 @@ export const hotels: Hotel[] = [
     description: null,
     image: {
       src: "/images/hotels/la-quinta-coral-springs-1200.jpg",
-      srcSet: "/images/hotels/la-quinta-coral-springs-600.jpg 600w, /images/hotels/la-quinta-coral-springs-1200.jpg 1200w",
-      alt: "La Quinta Inn & Suites Coral Springs – entrance and fountain",
+      srcSet: "/images/hotels/la-quinta-coral-springs-600.jpg 600w, /images/hotels/la-quinta-coral-springs-900.jpg 900w, /images/hotels/la-quinta-coral-springs-1200.jpg 1200w",
+      srcSetWebp: "/images/hotels/la-quinta-coral-springs-600.webp 600w, /images/hotels/la-quinta-coral-springs-900.webp 900w, /images/hotels/la-quinta-coral-springs-1200.webp 1200w",
+      alt: "La Quinta by Wyndham Coral Springs – entrance and fountain",
       width: 1200,
       height: 750,
       unoptimized: true,
@@ -93,7 +98,7 @@ export const hotels: Hotel[] = [
   },
   {
     slug: "la-quinta-west-palm-beach",
-    name: "La Quinta by Wyndham",
+    name: "La Quinta by Wyndham West Palm Beach",
     type: "Urban",
     address: "5981 Okeechobee Blvd, West Palm Beach, FL 33417",
     city: "West Palm Beach",
@@ -102,7 +107,8 @@ export const hotels: Hotel[] = [
     description: null,
     image: {
       src: "/images/hotels/la-quinta-west-palm-beach-1200.jpg",
-      srcSet: "/images/hotels/la-quinta-west-palm-beach-600.jpg 600w, /images/hotels/la-quinta-west-palm-beach-1200.jpg 1200w",
+      srcSet: "/images/hotels/la-quinta-west-palm-beach-600.jpg 600w, /images/hotels/la-quinta-west-palm-beach-900.jpg 900w, /images/hotels/la-quinta-west-palm-beach-1200.jpg 1200w",
+      srcSetWebp: "/images/hotels/la-quinta-west-palm-beach-600.webp 600w, /images/hotels/la-quinta-west-palm-beach-900.webp 900w, /images/hotels/la-quinta-west-palm-beach-1200.webp 1200w",
       alt: "La Quinta by Wyndham West Palm Beach – exterior",
       width: 1200,
       height: 750,
@@ -124,7 +130,8 @@ export const hotels: Hotel[] = [
     description: null,
     image: {
       src: "/images/hotels/nova-inn-boynton-beach-1200.jpg",
-      srcSet: "/images/hotels/nova-inn-boynton-beach-600.jpg 600w, /images/hotels/nova-inn-boynton-beach-1200.jpg 1200w",
+      srcSet: "/images/hotels/nova-inn-boynton-beach-600.jpg 600w, /images/hotels/nova-inn-boynton-beach-900.jpg 900w, /images/hotels/nova-inn-boynton-beach-1200.jpg 1200w",
+      srcSetWebp: "/images/hotels/nova-inn-boynton-beach-600.webp 600w, /images/hotels/nova-inn-boynton-beach-900.webp 900w, /images/hotels/nova-inn-boynton-beach-1200.webp 1200w",
       alt: "Nova Inn Boynton Beach – pool",
       width: 1200,
       height: 750,

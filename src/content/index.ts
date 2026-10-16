@@ -7,17 +7,33 @@
  * mapped to the shapes in ./types.ts. Otherwise it comes from the local files
  * in this folder. Section copy (about, partner, contact…) lives in ./home.ts
  * either way.
+ *
+ * Fallback rule: the local files are used only until the Sanity dataset has
+ * been filled in (the "Site settings" document exists – the Starter content
+ * tool creates it). From then on Sanity is the single source of truth, so a
+ * hotel or testimonial removed in the Studio really disappears from the site
+ * instead of the local copy coming back.
  */
+import "server-only";
 import { cacheLife, cacheTag } from "next/cache";
 import * as home from "./home";
 import { hotelTypes, hotels as localHotels } from "./hotels";
 import { footerNav, mainNav, site as localSite } from "./site";
 import { careers, perspectivesIntro, team as localTeam, teamGroups, teamIntro } from "./team";
-import type { ComparisonChart, FinancialStrengthContent, Hotel, ImageRef, Service, SiteSettings, TeamMember, Testimonial } from "./types";
+import type {
+  ComparisonChart,
+  FinancialStrengthContent,
+  Hotel,
+  HotelType,
+  ImageRef,
+  Service,
+  SiteSettings,
+  TeamMember,
+  Testimonial,
+} from "./types";
 import { client, urlFor } from "@/sanity/client";
 import {
   financialStrengthQuery,
-  hotelBySlugQuery,
   hotelsQuery,
   servicesQuery,
   siteSettingsQuery,
@@ -114,34 +130,55 @@ function mapSettings(s: Record<string, unknown>): SiteSettings {
     legalName: (s.legalName as string) || localSite.legalName,
     feiNumber: (s.feiNumber as string) || localSite.feiNumber,
     legalDisclaimer: (s.legalDisclaimer as string) || localSite.legalDisclaimer,
-    showPlaceholders: typeof s.showPlaceholders === "boolean" ? s.showPlaceholders : localSite.showPlaceholders,
   };
 }
 
-/** Tag shared by every Sanity read; `revalidateTag(SANITY_TAG, "max")` refreshes all of it on demand. */
+/** Tag shared by every Sanity read; `revalidateTag(SANITY_TAG, …)` refreshes all of it on demand. */
 export const SANITY_TAG = "sanity";
 
 /**
  * Runs a GROQ query through Next's cache so the result can be prerendered
- * into the static pages. Refreshes in the background about once an hour, or
- * immediately when the "sanity" tag is revalidated (see /api/revalidate).
+ * into the static pages. Refreshes in the background about once an hour
+ * (see the "content" cache profile in next.config.ts), or immediately when
+ * the "sanity" tag is revalidated by the webhook (see /api/revalidate).
+ *
+ * Errors are not swallowed on purpose: a failed refresh keeps serving the
+ * last good content, and a failed build fails loudly instead of quietly
+ * publishing the local files over the client's edits.
  */
-async function cachedQuery<T>(query: string, params: Record<string, string>): Promise<T | null> {
+async function cachedQuery<T>(query: string, params: Record<string, string> = {}): Promise<T | null> {
   "use cache";
-  cacheLife("hours");
+  cacheLife("content");
   cacheTag(SANITY_TAG);
   if (!client) return null;
-  return (await client.fetch<T>(query, params)) ?? null;
+  try {
+    return (await client.fetch<T>(query, params)) ?? null;
+  } catch (error) {
+    console.error("Sanity fetch failed:", error);
+    throw error;
+  }
 }
 
-async function fetchOrNull<T>(query: string, params: Record<string, string> = {}): Promise<T | null> {
+/** Site settings document, or null when Sanity isn't connected / not filled in yet. */
+async function sanitySettings(): Promise<Record<string, unknown> | null> {
   if (!client) return null;
-  try {
-    return await cachedQuery<T>(query, params);
-  } catch (error) {
-    console.error("Sanity fetch failed, falling back to local content:", error);
-    return null;
-  }
+  return cachedQuery<Record<string, unknown>>(siteSettingsQuery);
+}
+
+/** True once the Sanity dataset holds the Site settings document – from then on Sanity is the only source. */
+async function isLive(): Promise<boolean> {
+  return (await sanitySettings()) !== null;
+}
+
+/**
+ * Reads a list from Sanity. Before the dataset is filled in, the local list
+ * is used; afterwards the Sanity result stands even when it is empty.
+ */
+async function listOrLocal<T>(query: string, map: (row: Record<string, unknown>) => T, local: T[]): Promise<T[]> {
+  if (!client) return local;
+  const rows = await cachedQuery<Record<string, unknown>[]>(query);
+  if (rows && rows.length) return rows.map(map);
+  return (await isLive()) ? [] : local;
 }
 
 // ---------------------------------------------------------------------------
@@ -149,7 +186,7 @@ async function fetchOrNull<T>(query: string, params: Record<string, string> = {}
 // ---------------------------------------------------------------------------
 
 export async function getSiteSettings(): Promise<SiteSettings> {
-  const s = await fetchOrNull<Record<string, unknown>>(siteSettingsQuery);
+  const s = await sanitySettings();
   return s ? mapSettings(s) : localSite;
 }
 
@@ -157,37 +194,43 @@ export function getNavigation() {
   return { main: mainNav, footer: footerNav };
 }
 
+/** Year shown in the footer's copyright line (refreshed with the content cache). */
+export async function getCopyrightYear(): Promise<number> {
+  "use cache";
+  cacheLife("content");
+  return Math.max(2026, new Date().getFullYear());
+}
+
 export function getHomeContent() {
   return home;
 }
 
 export async function getStats(): Promise<{ stats: { value: string; label: string }[]; footnote: string }> {
-  const s = await fetchOrNull<Record<string, unknown>>(siteSettingsQuery);
-  const stats = s && Array.isArray(s.stats) && s.stats.length ? (s.stats as { value: string; label: string }[]) : home.stats;
+  const s = await sanitySettings();
+  // Once Site settings exist in Sanity, its list stands (an empty list hides the band).
+  const stats = s ? (Array.isArray(s.stats) ? (s.stats as { value: string; label: string }[]) : []) : home.stats;
   const footnote = (s?.statsFootnote as string) || home.statsFootnote;
   return { stats, footnote };
 }
 
 export async function getHotels(): Promise<Hotel[]> {
-  const rows = await fetchOrNull<Record<string, unknown>[]>(hotelsQuery);
-  return rows && rows.length ? rows.map(mapHotel) : localHotels;
+  return listOrLocal(hotelsQuery, mapHotel, localHotels);
 }
 
+/** One hotel by its web address; hidden hotels are not found, like deleted ones. */
 export async function getHotel(slug: string): Promise<Hotel | null> {
-  if (client) {
-    const row = await fetchOrNull<Record<string, unknown>>(hotelBySlugQuery, { slug });
-    if (row) return mapHotel(row);
-  }
-  return localHotels.find((h) => h.slug === slug) ?? null;
+  const hotels = await getHotels();
+  return hotels.find((h) => h.slug === slug) ?? null;
 }
 
-export function getHotelTypes() {
-  return hotelTypes;
+/** The hotel types that actually occur in the portfolio, in the site's fixed order (for the filter buttons). */
+export function getHotelTypes(hotels: Hotel[]): HotelType[] {
+  return hotelTypes.filter((type) => hotels.some((h) => h.type === type));
 }
 
 export async function getTeam(): Promise<TeamMember[]> {
-  const rows = await fetchOrNull<Record<string, unknown>[]>(teamQuery);
-  return rows && rows.length ? rows.map(mapTeamMember).filter((m) => m.photo.src) : localTeam;
+  const members = await listOrLocal(teamQuery, mapTeamMember, localTeam);
+  return members.filter((m) => m.photo.src);
 }
 
 export function getTeamPageContent() {
@@ -195,16 +238,16 @@ export function getTeamPageContent() {
 }
 
 export async function getTestimonials(): Promise<Testimonial[]> {
-  const rows = await fetchOrNull<Record<string, unknown>[]>(testimonialsQuery);
-  if (rows && rows.length) {
-    return rows.map((t) => ({
+  return listOrLocal(
+    testimonialsQuery,
+    (t) => ({
       quote: String(t.quote ?? ""),
       name: (t.name as string) || null,
       role: String(t.role ?? ""),
       company: (t.company as string) || null,
-    }));
-  }
-  return home.testimonials;
+    }),
+    home.testimonials,
+  );
 }
 
 function mapChart(c: Record<string, unknown>): ComparisonChart {
@@ -225,7 +268,7 @@ function mapChart(c: Record<string, unknown>): ComparisonChart {
 
 export async function getFinancialStrength(): Promise<FinancialStrengthContent> {
   const local = home.financialStrength;
-  const s = await fetchOrNull<Record<string, unknown>>(financialStrengthQuery);
+  const s = client ? await cachedQuery<Record<string, unknown>>(financialStrengthQuery) : null;
   if (!s) return local;
   const metrics = Array.isArray(s.metrics) ? (s.metrics as Record<string, unknown>[]) : [];
   const charts = Array.isArray(s.charts) ? (s.charts as Record<string, unknown>[]) : [];
@@ -233,24 +276,22 @@ export async function getFinancialStrength(): Promise<FinancialStrengthContent> 
     eyebrow: local.eyebrow,
     heading: (s.heading as string) || local.heading,
     intro: (s.intro as string) || local.intro,
-    metrics: metrics.length
-      ? metrics.map((m) => ({ value: String(m.value ?? ""), label: String(m.label ?? ""), note: (m.note as string) || null }))
-      : local.metrics,
-    charts: charts.length ? charts.map(mapChart) : local.charts,
+    metrics: metrics.map((m) => ({ value: String(m.value ?? ""), label: String(m.label ?? ""), note: (m.note as string) || null })),
+    charts: charts.map(mapChart),
     hidden: s.hidden === true,
   };
 }
 
 export async function getServices(): Promise<Service[]> {
-  const rows = await fetchOrNull<Record<string, unknown>[]>(servicesQuery);
-  if (rows && rows.length) {
-    return rows.map((s) => ({
+  return listOrLocal(
+    servicesQuery,
+    (s) => ({
       slug: String(s.slug ?? ""),
       title: String(s.title ?? ""),
       description: String(s.description ?? ""),
       details: (s.details as string) || null,
       icon: (s.icon as Service["icon"]) ?? "building",
-    }));
-  }
-  return home.services;
+    }),
+    home.services,
+  );
 }

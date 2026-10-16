@@ -21,7 +21,7 @@ export const careers = {
   eyebrow: "Careers",
   heading: "Join our team",
   text: "We are always looking for driven professionals who share our commitment to excellence in hospitality management.",
-  cta: "Get in Touch",
+  cta: "Email us",
 };
 
 export const team: TeamMember[] = [
