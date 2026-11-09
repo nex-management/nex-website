@@ -1,4 +1,5 @@
 import type {
+  MarketContent,
   AboutContent,
   CeoQuote,
   FinancialStrengthContent,
@@ -24,12 +25,12 @@ export const hero = {
 export const stats: Stat[] = [
   { value: "$100M+", label: "Portfolio Under Management" },
   { value: "700+", label: "Hotel Rooms Managed" },
-  { value: "10%+", label: "Average Investor Returns" },
-  { value: "3:1", label: "Bank Leverage Ratio" },
+  { value: "6", label: "Hotels Across South Florida" },
+  { value: "2.48x", label: "Blended Debt Service Coverage" },
 ];
 
 export const statsFootnote =
-  "Portfolio value and room count include owned and managed properties across Florida. Average investor returns are historical and are not a guarantee of future results.";
+  "Portfolio value and room count include owned and managed properties across Florida. Debt service coverage is trailing twelve months through June 2026. Past performance is not a guarantee of future results.";
 
 export const about: AboutContent = {
   eyebrow: "Who We Are",
@@ -139,7 +140,7 @@ export const trackRecord: TrackRecordContent = {
     "We currently manage a $100M+ portfolio with over 700 hotel rooms across Florida. Our performance speaks for itself.",
   bankHeading: "Powerful bank partnerships",
   bankText:
-    "Our established banking relationships allow us to secure 3:1 leverage on every investment dollar. A $100K investment becomes $400K in acquisition power, amplifying potential returns and deal opportunities.",
+    "Our established lender relationships have historically allowed us to finance up to approximately 75% of total project cost, so investor capital goes further in every acquisition.",
   caseStudy: {
     propertyName: null,
     period: "first 6 months under Nex management",
@@ -156,6 +157,13 @@ export const trackRecord: TrackRecordContent = {
         before: "$95",
         after: "$140",
         beforeWidth: 0.68,
+        afterWidth: 1,
+      },
+      {
+        label: "Revenue per available room",
+        before: "$52",
+        after: "$119",
+        beforeWidth: 0.44,
         afterWidth: 1,
       },
     ],
@@ -193,6 +201,26 @@ export const financialStrength: FinancialStrengthContent = {
         { label: "Current TTM", value: 6.87, display: "$6.87M", emphasis: true },
       ],
     },
+    {
+      title: "Stabilized NOI margin",
+      caption: "Margin rose 2.9 points year over year: more of every revenue dollar reaches the bottom line.",
+      format: "percent",
+      max: 40,
+      bars: [
+        { label: "Prior year", value: 33.6, display: "33.6%", emphasis: false },
+        { label: "Trailing 12 months", value: 36.5, display: "36.5%", emphasis: true },
+      ],
+    },
+    {
+      title: "2026 year-to-date growth",
+      caption: "Four stabilized hotels, 2026 year to date versus the same period of 2025.",
+      format: "percent",
+      max: 12,
+      bars: [
+        { label: "Revenue", value: 9.6, display: "+9.6%", emphasis: true },
+        { label: "Average daily rate", value: 11.1, display: "+11.1%", emphasis: true },
+      ],
+    },
   ],
   hidden: false,
 };
@@ -221,8 +249,8 @@ export const partner: PartnerContent = {
       heading: "Invest in a portfolio of expertly managed hotel assets",
       text: "Access a portfolio of professionally managed and appreciating hotel assets, backed by established banking relationships. Join our investor community.",
       bullets: [
-        "10%+ average investor returns",
-        "3:1 bank leverage on every dollar invested",
+        "Portfolio debt service coverage of 2.48x, nearly double the lender minimum",
+        "Lender relationships that have financed up to ~75% of project cost",
         "Owners who invest alongside you",
       ],
       cta: { label: "Explore investments", href: "/contact?topic=invest" },
@@ -285,5 +313,61 @@ export const contact = {
   heading: "We'd love to connect.",
   text: "Whether you're looking for a management partner, exploring an acquisition, or need guidance on a PIP project – reach out and we'll get back to you promptly.",
   scheduleHeading: "Prefer to schedule directly?",
-  scheduleLabel: "Book a private consultation →",
+  scheduleLabel: "Book a private consultation",
+};
+
+/**
+ * "Where we operate": the portfolio map and how the South Florida hotel
+ * market compares with the U.S. Market figures are public STR data –
+ * update them once a year (sources below).
+ */
+export const market: MarketContent = {
+  eyebrow: "Where we operate",
+  heading: "Six hotels in one of America's strongest hotel markets",
+  intro:
+    "Our portfolio spans Miami-Dade, Broward and Palm Beach counties: airport, suburban, urban and boutique hotels within an hour's drive of each other, so every property gets hands-on oversight.",
+  marketHeading: "South Florida outperforms the national market",
+  marketIntro: "Full-year 2025 hotel performance, Greater Miami compared with the United States as a whole.",
+  charts: [
+    {
+      title: "Occupancy",
+      caption: "Share of available rooms sold.",
+      format: "percent",
+      max: 80,
+      bars: [
+        { label: "United States", value: 62.3, display: "62.3%", emphasis: false },
+        { label: "Greater Miami", value: 73.9, display: "73.9%", emphasis: true },
+      ],
+    },
+    {
+      title: "Average daily rate",
+      caption: "Average price paid per occupied room.",
+      format: "usd",
+      max: 240,
+      bars: [
+        { label: "United States", value: 160.54, display: "$160.54", emphasis: false },
+        { label: "Greater Miami", value: 224.24, display: "$224.24", emphasis: true },
+      ],
+    },
+    {
+      title: "Revenue per available room",
+      caption: "Occupancy × average daily rate.",
+      format: "usd",
+      max: 180,
+      bars: [
+        { label: "United States", value: 100.02, display: "$100.02", emphasis: false },
+        { label: "Greater Miami", value: 165.73, display: "$165.73", emphasis: true },
+      ],
+    },
+  ],
+  sources: [
+    {
+      label: "Greater Miami: STR data via the Greater Miami Convention & Visitors Bureau, January–December 2025",
+      href: "https://www.miamiandbeaches.com/getmedia/964e21ca-c90b-427a-b314-bf5118214428/2025_Dec_Greater_Miami-Occupancy_and_ADR.pdf",
+    },
+    {
+      label: "United States: CoStar/STR full-year 2025 results (January 2026)",
+      href: "https://www.costar.com/es-la/productos/str-benchmark/recursos/notas-de-prensa/us-hotels-report-first-full-year-occupancy-revpar-declines-2020",
+    },
+  ],
 };

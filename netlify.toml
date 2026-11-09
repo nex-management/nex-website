@@ -1,0 +1,9 @@
+# Netlify settings that live with the code. Build command and publish
+# directory come from the Next.js runtime that Netlify applies automatically.
+
+# Static files are served straight from Netlify's CDN, where next.config.ts
+# headers don't apply, so the long cache for photos and the logo is repeated here.
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

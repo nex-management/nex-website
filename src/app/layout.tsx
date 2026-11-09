@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { getSiteSettings } from "@/content";
+import { indexable, siteUrl } from "@/lib/site-url";
+import { JsonLd, organizationJsonLd, webSiteJsonLd } from "@/components/seo/JsonLd";
 import "./globals.css";
 
 const cormorant = localFont({
@@ -24,7 +26,7 @@ const manrope = localFont({
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteSettings();
   return {
-    metadataBase: new URL("https://nex-mgmt.com"),
+    metadataBase: new URL(siteUrl),
     title: {
       default: site.seo.title,
       template: `%s – ${site.brandName}`,
@@ -36,17 +38,28 @@ export async function generateMetadata(): Promise<Metadata> {
       title: site.seo.title,
       description: site.seo.description,
       locale: "en_US",
+      // No `url` and no canonical here: Next resolves those against the current route's path, which
+      // for /studio (a dynamic route) isn't known at build time. Each page sets its own (see lib/seo.ts).
     },
     twitter: {
       card: "summary_large_image",
     },
+    // Previews and the temporary *.netlify.app address stay out of search results.
+    ...(indexable ? {} : { robots: { index: false, follow: false } }),
   };
 }
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const site = await getSiteSettings();
   return (
     <html lang="en" className={`${cormorant.variable} ${manrope.variable} h-full`}>
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
+        {children}
+        <JsonLd data={[organizationJsonLd(site), webSiteJsonLd(site)]} />
+      </body>
     </html>
   );
 }

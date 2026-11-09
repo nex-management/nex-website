@@ -23,8 +23,14 @@ export const hotel = defineType({
     }),
     defineField({ name: "address", title: "Street address", type: "string", description: "e.g. 8101 Peters Rd, Plantation, FL 33328", validation: (r) => r.required() }),
     defineField({ name: "city", title: "City", type: "string", validation: (r) => r.required() }),
+    defineField({
+      name: "location",
+      title: "Map position",
+      type: "geopoint",
+      description: "Latitude and longitude, for the dot on the portfolio map (copy them from Google Maps: right-click the hotel → the numbers at the top).",
+    }),
     defineField({ name: "brand", title: "Brand / franchise", type: "string", description: "e.g. Wyndham Hotels & Resorts. Leave empty for independent hotels." }),
-    defineField({ name: "rooms", title: "Number of rooms", type: "number" }),
+    defineField({ name: "rooms", title: "Number of rooms", type: "number", validation: (r) => r.integer().positive() }),
     defineField({ name: "managedSince", title: "Managed since (year)", type: "number", validation: (r) => r.integer().min(1990).max(2100) }),
     defineField({
       name: "ownership",

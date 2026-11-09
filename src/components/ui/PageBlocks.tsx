@@ -6,14 +6,14 @@ import { Eyebrow, Heading } from "./Typography";
 export function PageIntro({ eyebrow, heading, lead }: { eyebrow: string; heading: string; lead?: string }) {
   return (
     <section className="border-b border-line bg-cream">
-      <div className="container-x flex flex-wrap items-end gap-x-20 gap-y-10 pb-[88px] pt-24">
-        <div className="flex min-w-0 flex-[1_1_26.25rem] flex-col gap-5">
+      <div className="container-x band-y flex flex-wrap items-end gap-x-20 gap-y-10">
+        <div className="flex min-w-0 max-w-[46rem] flex-[1_1_36rem] flex-col gap-5">
           <Eyebrow tone="cream">{eyebrow}</Eyebrow>
           <Heading as="h1" size="xl" className="!text-[clamp(2.875rem,5.2vw,4.75rem)]">
             {heading}
           </Heading>
         </div>
-        {lead ? <p className="max-w-[35rem] flex-[1_1_25rem] pb-2.5 text-lg leading-[1.7] text-body">{lead}</p> : null}
+        {lead ? <p className="max-w-[35rem] flex-[0_1_28rem] pb-2.5 text-lg leading-[1.7] text-body">{lead}</p> : null}
       </div>
     </section>
   );
@@ -36,7 +36,7 @@ export function CtaBand({
   const dark = tone === "dark";
   return (
     <section className={dark ? "bg-ink text-white" : "border-t border-line bg-cream"}>
-      <div className="container-x flex flex-wrap items-center justify-between gap-x-16 gap-y-8 py-[88px]">
+      <div className="container-x band-y flex flex-wrap items-center justify-between gap-x-16 gap-y-8">
         <div className="flex max-w-[40rem] flex-[1_1_24rem] flex-col gap-4">
           <h2 className={`font-display text-[clamp(1.875rem,3vw,2.75rem)] font-semibold leading-[1.1] ${dark ? "text-white" : "text-ink"}`}>
             {heading}

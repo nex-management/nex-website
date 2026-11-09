@@ -40,7 +40,6 @@ export function starterSiteSettings(): StarterDocument {
     legalName: site.legalName,
     feiNumber: site.feiNumber,
     legalDisclaimer: site.legalDisclaimer,
-    showPlaceholders: site.showPlaceholders,
   });
 }
 
@@ -62,6 +61,7 @@ export function starterHotels(): { doc: StarterDocument; photoPath: string | nul
       rooms: h.rooms,
       managedSince: h.managedSince,
       ownership: h.ownership,
+      location: h.location ? { _type: "geopoint", lat: h.location.lat, lng: h.location.lng } : undefined,
       highlights: h.highlights,
       description: h.description,
       order: i + 1,

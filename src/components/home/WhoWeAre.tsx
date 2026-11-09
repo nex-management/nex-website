@@ -6,7 +6,7 @@ export function WhoWeAre() {
 
   return (
     <section id="about" className="scroll-mt-20 bg-white">
-      <div className="container-x flex flex-col gap-[72px] py-[120px]">
+      <div className="container-x section-y flex flex-col gap-[72px]">
         <div className="flex flex-wrap items-start gap-x-20 gap-y-12">
           <div className="flex min-w-0 flex-[1_1_23.75rem] flex-col gap-5">
             <Eyebrow>{about.eyebrow}</Eyebrow>
@@ -24,7 +24,7 @@ export function WhoWeAre() {
         <ol className="grid list-none grid-cols-1 gap-x-12 gap-y-10 border-t border-line p-0 pt-14 sm:grid-cols-2 lg:grid-cols-4">
           {about.differentiators.map((item, index) => (
             <li key={item.title} className="flex flex-col gap-3.5">
-              <p className="font-display text-[34px] font-semibold leading-none text-gold" aria-hidden="true">
+              <p className="font-display text-[34px] font-semibold leading-none text-gold-text" aria-hidden="true">
                 {String(index + 1).padStart(2, "0")}
               </p>
               <h3 className="text-lg font-bold leading-[1.3] text-ink">{item.title}</h3>

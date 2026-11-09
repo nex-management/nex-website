@@ -37,7 +37,7 @@ export const teamMember = defineType({
       description: "Portrait, ideally 4:5 (e.g. 800 × 1000 px).",
       validation: (r) => r.required(),
     }),
-    defineField({ name: "email", title: "Email (shown on the site)", type: "string" }),
+    defineField({ name: "email", title: "Email (shown on the site)", type: "string", validation: (r) => r.email() }),
     defineField({ name: "linkedinUrl", title: "LinkedIn profile", type: "url" }),
     defineField({
       name: "perspective",

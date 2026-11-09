@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getHotel, getHotels, getSiteSettings } from "@/content";
+import { getHotel, getHotels } from "@/content";
 import { hotelPage } from "@/content/pages";
+import type { Hotel } from "@/content/types";
+import { pageMeta } from "@/lib/seo";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { HotelPhoto } from "@/components/home/PortfolioGrid";
+import { JsonLd, breadcrumbJsonLd, hotelPageJsonLd } from "@/components/seo/JsonLd";
 import { ButtonLink } from "@/components/ui/Button";
 import { CtaBand } from "@/components/ui/PageBlocks";
 import { DotList, Eyebrow } from "@/components/ui/Typography";
@@ -16,41 +19,54 @@ export async function generateStaticParams() {
   return hotels.map((hotel) => ({ slug: hotel.slug }));
 }
 
+/** "an airport hotel", "a suburban hotel" */
+function typePhrase(hotel: Hotel) {
+  const type = hotel.type.toLowerCase();
+  return `${/^[aeiou]/.test(type) ? "an" : "a"} ${type} hotel`;
+}
+
+function summary(hotel: Hotel) {
+  return (
+    hotel.description ??
+    `${hotel.name} is ${typePhrase(hotel)} in ${hotel.city}, Florida${hotel.brand ? `, operated under ${hotel.brand}` : ""}, managed by Nex Management.`
+  );
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const hotel = await getHotel(slug);
-  if (!hotel) return { title: "Property not found" };
-  return {
-    title: `${hotel.name} – ${hotel.city}`,
-    description: hotel.description ?? `${hotel.name}, a ${hotel.type.toLowerCase()} hotel in ${hotel.city}, managed by Nex Management.`,
-  };
+  if (!hotel) return { title: "Property not found", robots: { index: false, follow: false } };
+  const title = hotel.name.includes(hotel.city) ? hotel.name : `${hotel.name} – ${hotel.city}`;
+  return pageMeta({ title, description: summary(hotel), path: `/portfolio/${hotel.slug}` });
 }
 
-function Fact({ label, value, placeholder }: { label: string; value: string | null; placeholder: string | null }) {
-  if (!value && !placeholder) return null;
+function Fact({ label, value }: { label: string; value: string | null }) {
+  if (!value) return null;
   return (
     <div className="flex flex-col gap-1 border-t border-line pt-4">
       <dt className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-2">{label}</dt>
-      <dd className={`text-[17px] ${value ? "text-ink" : "text-muted-3"}`}>{value ?? placeholder}</dd>
+      <dd className="text-[17px] text-ink">{value}</dd>
     </div>
   );
 }
 
 export default async function HotelPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [hotel, site] = await Promise.all([getHotel(slug), getSiteSettings()]);
+  const [hotel, hotels] = await Promise.all([getHotel(slug), getHotels()]);
   if (!hotel) notFound();
 
-  const ph = (text: string) => (site.showPlaceholders ? `[${text}]` : null);
+  const others = hotels.filter((h) => h.slug !== hotel.slug);
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${hotel.name}, ${hotel.address}`)}`;
+  const description = summary(hotel);
 
   return (
     <>
       <Header currentPath="/portfolio" />
-      <main className="flex flex-1 flex-col">
+      <main id="main" tabIndex={-1} className="flex flex-1 flex-col outline-none">
         <section className="border-b border-line bg-cream">
           <div className="container-x flex flex-col gap-8 pb-16 pt-12">
             <Link href="/portfolio" className="label-caps self-start text-muted no-underline hover:text-ink">
+              <span aria-hidden="true">← </span>
               {hotelPage.backLabel}
             </Link>
             <div className="flex flex-wrap items-end gap-x-20 gap-y-8">
@@ -63,7 +79,12 @@ export default async function HotelPage({ params }: { params: Promise<{ slug: st
                 </h1>
                 <p className="text-lg text-body">
                   {hotel.address} ·{" "}
-                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="text-gold-text">
+                  <a
+                    href={mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gold-deep underline decoration-gold underline-offset-4 hover:text-ink"
+                  >
                     Map
                   </a>
                 </p>
@@ -73,9 +94,9 @@ export default async function HotelPage({ params }: { params: Promise<{ slug: st
         </section>
 
         <section className="bg-white">
-          <div className="container-x flex flex-wrap items-start gap-x-20 gap-y-12 py-[88px]">
+          <div className="container-x band-y flex flex-wrap items-start gap-x-20 gap-y-12">
             <div className="flex min-w-0 flex-[1_1_32rem] flex-col gap-10">
-              <HotelPhoto hotel={hotel} sizes="(min-width: 1280px) 760px, 100vw" />
+              <HotelPhoto hotel={hotel} sizes="(min-width: 1280px) 760px, 100vw" priority />
               {hotel.gallery.length > 0 ? (
                 <div className="flex flex-col gap-4">
                   <h2 className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold-text">{hotelPage.galleryHeading}</h2>
@@ -89,17 +110,7 @@ export default async function HotelPage({ params }: { params: Promise<{ slug: st
                 </div>
               ) : null}
               <div className="flex flex-col gap-4 text-[17px] leading-[1.7] text-body">
-                {hotel.description ? (
-                  <p>{hotel.description}</p>
-                ) : (
-                  <p>
-                    {hotel.name} is a {hotel.type.toLowerCase()} hotel in {hotel.city}, Florida
-                    {hotel.brand ? `, operated under ${hotel.brand}` : ""} and managed by Nex Management.
-                  </p>
-                )}
-                {!hotel.description && site.showPlaceholders ? (
-                  <p className="text-muted-3">[Property description – to be provided]</p>
-                ) : null}
+                <p>{description}</p>
               </div>
             </div>
 
@@ -107,16 +118,18 @@ export default async function HotelPage({ params }: { params: Promise<{ slug: st
               <div className="flex flex-col gap-5">
                 <h2 className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold-text">{hotelPage.factsHeading}</h2>
                 <dl className="flex flex-col gap-4">
-                  <Fact label="Brand" value={hotel.brand ?? "Independent"} placeholder={null} />
-                  <Fact label="Rooms" value={hotel.rooms ? String(hotel.rooms) : null} placeholder={ph("ROOMS")} />
-                  <Fact label="Managed since" value={hotel.managedSince ? String(hotel.managedSince) : null} placeholder={ph("YEAR")} />
-                  <Fact label="Relationship" value={hotel.ownership} placeholder={ph("Owned / Managed")} />
+                  <Fact label="Brand" value={hotel.brand ?? "Independent"} />
+                  <Fact label="Rooms" value={hotel.rooms ? String(hotel.rooms) : null} />
+                  <Fact label="Managed since" value={hotel.managedSince ? String(hotel.managedSince) : null} />
+                  <Fact label="Relationship" value={hotel.ownership} />
                 </dl>
               </div>
-              <div className="flex flex-col gap-4">
-                <h2 className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold-text">{hotelPage.highlightsHeading}</h2>
-                <DotList items={hotel.highlights} size="md" className="!border-t-0 !pt-0" />
-              </div>
+              {hotel.highlights.length > 0 ? (
+                <div className="flex flex-col gap-4">
+                  <h2 className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold-text">{hotelPage.highlightsHeading}</h2>
+                  <DotList items={hotel.highlights} size="md" className="!border-t-0 !pt-0" />
+                </div>
+              ) : null}
               <ButtonLink href={hotelPage.cta.button.href} variant="outline-dark" className="self-start">
                 {hotelPage.cta.button.label}
               </ButtonLink>
@@ -124,9 +137,41 @@ export default async function HotelPage({ params }: { params: Promise<{ slug: st
           </div>
         </section>
 
+        {others.length > 0 ? (
+          <section aria-labelledby="other-properties" className="border-t border-line bg-cream">
+            <div className="container-x band-y flex flex-col gap-6">
+              <h2 id="other-properties" className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold-deep">
+                {hotelPage.othersHeading}
+              </h2>
+              <ul className="flex list-none flex-wrap gap-x-8 gap-y-3 p-0">
+                {others.map((other) => (
+                  <li key={other.slug}>
+                    <Link
+                      href={`/portfolio/${other.slug}`}
+                      className="text-[15px] font-semibold text-ink underline decoration-line-2 underline-offset-4 transition-colors hover:decoration-gold"
+                    >
+                      {other.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        ) : null}
+
         <CtaBand heading={hotelPage.cta.heading} button={hotelPage.cta.button} />
       </main>
       <Footer />
+      <JsonLd
+        data={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Portfolio", path: "/portfolio" },
+            { name: hotel.name, path: `/portfolio/${hotel.slug}` },
+          ]),
+          hotelPageJsonLd(hotel, description),
+        ]}
+      />
     </>
   );
 }

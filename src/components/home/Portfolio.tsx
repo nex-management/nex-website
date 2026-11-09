@@ -6,20 +6,21 @@ import { PortfolioGrid } from "./PortfolioGrid";
 export async function Portfolio() {
   const { portfolioIntro, strategyPillars } = getHomeContent();
   const hotels = await getHotels();
-  const types = getHotelTypes();
+  if (hotels.length === 0) return null;
+  const types = getHotelTypes(hotels);
 
   return (
     <section id="portfolio" className="scroll-mt-20 bg-white">
-      <div className="container-x flex flex-col gap-12 py-[120px]">
+      <div className="container-x section-y flex flex-col gap-12">
         <SectionIntro
           eyebrow={portfolioIntro.eyebrow}
           heading={portfolioIntro.heading}
           lead={portfolioIntro.text}
         />
 
-        <PortfolioGrid hotels={hotels} types={types} />
+        <PortfolioGrid hotels={hotels} types={types} linkToPages />
 
-        <ul className="grid list-none grid-cols-[repeat(auto-fit,minmax(16.25rem,1fr))] gap-x-12 gap-y-8 border-t border-line p-0 pt-12">
+        <ul className="grid list-none grid-cols-[repeat(auto-fit,minmax(min(16.25rem,100%),1fr))] gap-x-12 gap-y-8 border-t border-line p-0 pt-12">
           {strategyPillars.map((pillar) => (
             <li key={pillar.title} className="flex items-start gap-[18px]">
               <Icon name={pillar.icon} size={28} className="shrink-0 text-gold-text" />

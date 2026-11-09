@@ -8,7 +8,7 @@ export function CeoQuote() {
 
   return (
     <section id="team" className="scroll-mt-20 bg-white">
-      <div className="container-x flex flex-wrap items-center gap-x-24 gap-y-12 py-[120px]">
+      <div className="container-x section-y flex flex-wrap items-center gap-x-24 gap-y-12">
         <div className="min-w-[17.5rem] flex-[0_1_26.25rem]">
           <Image
             src={ceoQuote.photo.src}
@@ -28,7 +28,7 @@ export function CeoQuote() {
             <p className="text-base font-bold text-ink">{ceoQuote.name}</p>
             <p className="text-sm text-muted">{ceoQuote.title}</p>
           </div>
-          <TextLink href="/team">Meet the leadership team →</TextLink>
+          <TextLink href="/team">Meet the leadership team</TextLink>
         </div>
       </div>
     </section>

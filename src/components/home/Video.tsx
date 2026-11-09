@@ -14,11 +14,11 @@ export async function Video() {
   const site = await getSiteSettings();
   const id = youtubeId(site.videoUrl);
 
-  if (!id && !site.showPlaceholders) return null;
+  if (!id) return null;
 
   return (
     <section aria-labelledby="video-heading" className="bg-ink text-white">
-      <div className="container-x flex flex-col items-center gap-12 py-[110px]">
+      <div className="container-x section-y flex flex-col items-center gap-12">
         <SectionIntro
           eyebrow={video.eyebrow}
           heading={video.heading}
@@ -27,7 +27,7 @@ export async function Video() {
           align="center"
           headingId="video-heading"
         />
-        <VideoPlayer videoId={id} label={video.buttonLabel} poster={site.videoPoster} />
+        <VideoPlayer videoId={id} label={video.buttonLabel} poster={site.videoPoster ?? site.heroImage} />
       </div>
     </section>
   );

@@ -1,16 +1,13 @@
-import type { Metadata } from "next";
 import { getServices } from "@/content";
 import { servicesPage } from "@/content/pages";
+import { pageMeta } from "@/lib/seo";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Icon } from "@/components/ui/Icon";
 import { CtaBand, PageIntro } from "@/components/ui/PageBlocks";
 import { DotList, Eyebrow, Heading } from "@/components/ui/Typography";
 
-export const metadata: Metadata = {
-  title: "Services",
-  description: servicesPage.intro,
-};
+export const metadata = pageMeta({ title: "Services", description: servicesPage.intro, path: "/services" });
 
 export default async function ServicesPage() {
   const services = await getServices();
@@ -18,11 +15,11 @@ export default async function ServicesPage() {
   return (
     <>
       <Header currentPath="/services" />
-      <main className="flex flex-1 flex-col">
+      <main id="main" tabIndex={-1} className="flex flex-1 flex-col outline-none">
         <PageIntro eyebrow={servicesPage.eyebrow} heading={servicesPage.heading} lead={servicesPage.intro} />
 
         <section className="bg-white">
-          <div className="container-x flex flex-col py-[60px]">
+          <div className="container-x flex flex-col py-[clamp(1.5rem,4vw,3.75rem)]">
             {services.map((service, index) => (
               <article
                 key={service.slug}
@@ -50,7 +47,7 @@ export default async function ServicesPage() {
         </section>
 
         <section className="border-y border-line bg-cream">
-          <div className="container-x flex flex-wrap items-start gap-x-20 gap-y-10 py-[100px]">
+          <div className="container-x section-y flex flex-wrap items-start gap-x-20 gap-y-10">
             <div className="flex min-w-0 flex-[1_1_22rem] flex-col gap-5">
               <Eyebrow tone="cream">{servicesPage.approach.eyebrow}</Eyebrow>
               <Heading>{servicesPage.approach.heading}</Heading>

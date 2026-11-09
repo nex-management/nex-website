@@ -1,17 +1,15 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { getSiteSettings, getTeam, getTeamPageContent } from "@/content";
+import { teamIntro } from "@/content/team";
+import { pageMeta } from "@/lib/seo";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { JsonLd, personJsonLd } from "@/components/seo/JsonLd";
 import { ButtonLink } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { Eyebrow, Heading } from "@/components/ui/Typography";
 
-export const metadata: Metadata = {
-  title: "Leadership & Team",
-  description:
-    "The professionals behind Nex Management bring decades of combined experience in hospitality operations, real estate, and financial management.",
-};
+export const metadata = pageMeta({ title: "Leadership & Team", description: teamIntro.text, path: "/team" });
 
 export default async function TeamPage() {
   const { teamIntro, teamGroups, perspectivesIntro, careers } = getTeamPageContent();
@@ -21,23 +19,23 @@ export default async function TeamPage() {
   return (
     <>
       <Header currentPath="/team" />
-      <main className="flex flex-1 flex-col">
+      <main id="main" tabIndex={-1} className="flex flex-1 flex-col outline-none">
         {/* Page intro */}
         <section className="border-b border-line bg-cream">
-          <div className="container-x flex flex-wrap items-end gap-x-20 gap-y-10 pb-[88px] pt-24">
-            <div className="flex min-w-0 flex-[1_1_26.25rem] flex-col gap-5">
+          <div className="container-x band-y flex flex-wrap items-end gap-x-20 gap-y-10">
+            <div className="flex min-w-0 max-w-[46rem] flex-[1_1_36rem] flex-col gap-5">
               <Eyebrow tone="cream">{teamIntro.eyebrow}</Eyebrow>
               <Heading as="h1" size="xl" className="!text-[clamp(2.875rem,5.2vw,4.75rem)]">
                 {teamIntro.heading}
               </Heading>
             </div>
-            <p className="max-w-[35rem] flex-[1_1_25rem] pb-2.5 text-lg leading-[1.7] text-body">{teamIntro.text}</p>
+            <p className="max-w-[35rem] flex-[0_1_28rem] pb-2.5 text-lg leading-[1.7] text-body">{teamIntro.text}</p>
           </div>
         </section>
 
         {/* Team grid */}
         <section aria-label="Team members" className="bg-white">
-          <div className="container-x flex flex-col gap-[72px] pb-[110px] pt-[100px]">
+          <div className="container-x section-y flex flex-col gap-[72px]">
             {teamGroups.map((group) => {
               const members = team.filter((member) => member.group === group.id);
               if (members.length === 0) return null;
@@ -47,8 +45,8 @@ export default async function TeamPage() {
                     <h2 className="eyebrow whitespace-nowrap text-gold-text">{group.label}</h2>
                     <div aria-hidden="true" className="h-px flex-1 bg-line" />
                   </div>
-                  <ul className="grid list-none grid-cols-[repeat(auto-fit,minmax(18.75rem,1fr))] items-start gap-x-10 gap-y-14 p-0">
-                    {members.map((member) => (
+                  <ul className="grid list-none grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] items-start gap-x-10 gap-y-14 p-0">
+                    {members.map((member, index) => (
                       <li key={member.slug}>
                         <article className="flex flex-col gap-[22px]">
                           <Image
@@ -58,6 +56,8 @@ export default async function TeamPage() {
                             width={member.photo.width ?? 800}
                             height={member.photo.height ?? 1000}
                             sizes="(min-width: 1280px) 380px, (min-width: 768px) 50vw, 100vw"
+                            // The first portrait is the page's largest visible image: load it first.
+                            priority={group.id === "leadership" && index === 0}
                             className="aspect-[4/5] w-full rounded-[2px] object-cover"
                           />
                           <div className="flex flex-col gap-2">
@@ -85,8 +85,6 @@ export default async function TeamPage() {
                                   <Icon name="linkedin" size={16} />
                                   LinkedIn
                                 </a>
-                              ) : member.email && site.showPlaceholders ? (
-                                <span className="text-muted-3">[LinkedIn – pending]</span>
                               ) : null}
                             </div>
                           ) : null}
@@ -103,7 +101,7 @@ export default async function TeamPage() {
         {/* Leadership perspectives */}
         {withPerspective.length > 0 ? (
           <section aria-labelledby="perspectives-heading" className="border-y border-line bg-cream">
-            <div className="container-x flex flex-col gap-16 py-[110px]">
+            <div className="container-x section-y flex flex-col gap-16">
               <div className="flex flex-wrap items-end gap-x-20 gap-y-6">
                 <div className="flex min-w-0 flex-[1_1_23.75rem] flex-col gap-[18px]">
                   <Eyebrow tone="cream">{perspectivesIntro.eyebrow}</Eyebrow>
@@ -137,7 +135,7 @@ export default async function TeamPage() {
                         <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold-deep">{member.title}</p>
                       </div>
                     </figcaption>
-                    <blockquote className="min-w-0 flex-[1_1_32.5rem] border-l-2 border-gold pl-8 font-display text-2xl font-medium italic leading-[1.45] text-ink">
+                    <blockquote className="min-w-0 max-w-[44rem] flex-[1_1_32.5rem] border-l-2 border-gold pl-8 font-display text-[22px] font-medium italic leading-[1.5] text-ink">
                       &ldquo;{member.perspective}&rdquo;
                     </blockquote>
                   </figure>
@@ -149,7 +147,7 @@ export default async function TeamPage() {
 
         {/* Careers */}
         <section aria-labelledby="careers-heading" className="bg-white">
-          <div className="container-x flex flex-col items-center gap-6 py-[110px] text-center">
+          <div className="container-x section-y flex flex-col items-center gap-6 text-center">
             <Eyebrow>{careers.eyebrow}</Eyebrow>
             <Heading id="careers-heading">{careers.heading}</Heading>
             <p className="max-w-[37.5rem] text-[17px] leading-[1.7] text-body">{careers.text}</p>
@@ -160,6 +158,7 @@ export default async function TeamPage() {
         </section>
       </main>
       <Footer />
+      <JsonLd data={team.map(personJsonLd)} />
     </>
   );
 }

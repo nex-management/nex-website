@@ -1,7 +1,6 @@
 /**
  * Copy for the inner pages (About, Services, Portfolio, Partner, Contact).
- * Everything here is drawn from the company's existing texts; facts that are
- * still pending from the client are marked as placeholders by the components.
+ * Everything here is drawn from the company's existing texts.
  */
 
 export const aboutPage = {
@@ -70,10 +69,11 @@ export const portfolioPage = {
 };
 
 export const hotelPage = {
-  backLabel: "← All properties",
+  backLabel: "All properties",
   factsHeading: "At a glance",
   highlightsHeading: "Our focus at this property",
   galleryHeading: "Photos",
+  othersHeading: "Other properties in the portfolio",
   cta: {
     heading: "Interested in this property or in working with Nex?",
     button: { label: "Contact us", href: "/contact" },
@@ -91,9 +91,13 @@ export const partnerPage = {
     heading: "Invest in a portfolio of expertly managed hotel assets",
     paragraphs: [
       "Access a portfolio of professionally managed and appreciating hotel assets, backed by established banking relationships. Join our investor community.",
-      "Our established banking relationships allow us to secure 3:1 leverage on every investment dollar. A $100K investment becomes $400K in acquisition power, amplifying potential returns and deal opportunities.",
+      "Our established lender relationships have historically allowed us to finance up to approximately 75% of total project cost, so investor capital goes further in every acquisition.",
     ],
-    bullets: ["10%+ average investor returns", "3:1 bank leverage on every dollar invested", "Owners who invest alongside you"],
+    bullets: [
+      "Portfolio debt service coverage of 2.48x, nearly double the lender minimum",
+      "Lender relationships that have financed up to ~75% of project cost",
+      "Owners who invest alongside you",
+    ],
     cta: { label: "Explore investments", href: "/contact?topic=invest" },
   },
   owners: {

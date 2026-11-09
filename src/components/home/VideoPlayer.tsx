@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ImageRef } from "@/content/types";
 import { Icon } from "@/components/ui/Icon";
+import { Picture } from "@/components/ui/Picture";
 
 export function VideoPlayer({
   videoId,
@@ -15,14 +15,21 @@ export function VideoPlayer({
   poster: ImageRef | null;
 }) {
   const [playing, setPlaying] = useState(false);
+  const frameRef = useRef<HTMLIFrameElement>(null);
+
+  // The play button disappears once the video starts; keyboard focus moves into the player.
+  useEffect(() => {
+    if (playing) frameRef.current?.focus();
+  }, [playing]);
 
   if (videoId && playing) {
     return (
       <div className="aspect-video w-full max-w-[65rem] bg-black">
         <iframe
+          ref={frameRef}
           className="size-full"
           src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}
-          title="Nex Management video"
+          title="Nex Management – our story (YouTube video)"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
@@ -34,8 +41,8 @@ export function VideoPlayer({
     <div className="relative flex aspect-video w-full max-w-[65rem] flex-col items-center justify-center gap-[18px] overflow-hidden border border-ink-3 bg-ink-2">
       {poster ? (
         <>
-          <Image src={poster.src} alt="" unoptimized={poster.unoptimized} fill sizes="(min-width: 1120px) 1040px, 100vw" className="object-cover" />
-          <div aria-hidden="true" className="absolute inset-0 bg-ink/50" />
+          <Picture image={poster} alt="" sizes="(min-width: 1120px) 1040px, 100vw" />
+          <div aria-hidden="true" className="absolute inset-0 bg-ink/60" />
         </>
       ) : null}
       <button
@@ -47,9 +54,7 @@ export function VideoPlayer({
       >
         <Icon name="play" size={28} />
       </button>
-      <p className="relative text-xs font-semibold uppercase tracking-[0.16em] text-muted-3">
-        {videoId ? label : "[YouTube video – link pending]"}
-      </p>
+      <p className="relative text-xs font-semibold uppercase tracking-[0.16em] text-sand-2">{label}</p>
     </div>
   );
 }

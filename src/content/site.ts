@@ -27,6 +27,7 @@ export const site: SiteSettings = {
   heroImage: {
     src: "/images/hero/hotel-dusk-1776.jpg",
     srcSet: "/images/hero/hotel-dusk-1200.jpg 1200w, /images/hero/hotel-dusk-1776.jpg 1776w",
+    srcSetWebp: "/images/hero/hotel-dusk-1200.webp 1200w, /images/hero/hotel-dusk-1776.webp 1776w",
     alt: "",
     width: 1776,
     height: 896,
@@ -35,8 +36,6 @@ export const site: SiteSettings = {
   statsAsOf: null,
   legalDisclaimer:
     "This website is for informational purposes only. All investment opportunities involve risk. Please consult a financial advisor before making any investment decisions.",
-  copyrightYear: 2026,
-  showPlaceholders: true,
 };
 
 export const mainNav: NavItem[] = [
