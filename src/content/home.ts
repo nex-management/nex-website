@@ -24,12 +24,12 @@ export const hero = {
 export const stats: Stat[] = [
   { value: "$100M+", label: "Portfolio Under Management" },
   { value: "700+", label: "Hotel Rooms Managed" },
-  { value: "10%+", label: "Average Investor Returns" },
-  { value: "3:1", label: "Bank Leverage Ratio" },
+  { value: "6", label: "Hotels Across South Florida" },
+  { value: "2.48x", label: "Blended Debt Service Coverage" },
 ];
 
 export const statsFootnote =
-  "Portfolio value and room count include owned and managed properties across Florida. Average investor returns are historical and are not a guarantee of future results.";
+  "Portfolio value and room count include owned and managed properties across Florida. Debt service coverage is trailing twelve months through June 2026. Past performance is not a guarantee of future results.";
 
 export const about: AboutContent = {
   eyebrow: "Who We Are",
@@ -139,7 +139,7 @@ export const trackRecord: TrackRecordContent = {
     "We currently manage a $100M+ portfolio with over 700 hotel rooms across Florida. Our performance speaks for itself.",
   bankHeading: "Powerful bank partnerships",
   bankText:
-    "Our established banking relationships allow us to secure 3:1 leverage on every investment dollar. A $100K investment becomes $400K in acquisition power, amplifying potential returns and deal opportunities.",
+    "Our established lender relationships have historically allowed us to finance up to approximately 75% of total project cost, so investor capital goes further in every acquisition.",
   caseStudy: {
     propertyName: null,
     period: "first 6 months under Nex management",
@@ -156,6 +156,13 @@ export const trackRecord: TrackRecordContent = {
         before: "$95",
         after: "$140",
         beforeWidth: 0.68,
+        afterWidth: 1,
+      },
+      {
+        label: "Revenue per available room",
+        before: "$52",
+        after: "$119",
+        beforeWidth: 0.44,
         afterWidth: 1,
       },
     ],
@@ -193,6 +200,26 @@ export const financialStrength: FinancialStrengthContent = {
         { label: "Current TTM", value: 6.87, display: "$6.87M", emphasis: true },
       ],
     },
+    {
+      title: "Stabilized NOI margin",
+      caption: "Margin rose 2.9 points year over year: more of every revenue dollar reaches the bottom line.",
+      format: "percent",
+      max: 40,
+      bars: [
+        { label: "Prior year", value: 33.6, display: "33.6%", emphasis: false },
+        { label: "Trailing 12 months", value: 36.5, display: "36.5%", emphasis: true },
+      ],
+    },
+    {
+      title: "2026 year-to-date growth",
+      caption: "Four stabilized hotels, 2026 year to date versus the same period of 2025.",
+      format: "percent",
+      max: 12,
+      bars: [
+        { label: "Revenue", value: 9.6, display: "+9.6%", emphasis: true },
+        { label: "Average daily rate", value: 11.1, display: "+11.1%", emphasis: true },
+      ],
+    },
   ],
   hidden: false,
 };
@@ -221,8 +248,8 @@ export const partner: PartnerContent = {
       heading: "Invest in a portfolio of expertly managed hotel assets",
       text: "Access a portfolio of professionally managed and appreciating hotel assets, backed by established banking relationships. Join our investor community.",
       bullets: [
-        "10%+ average investor returns",
-        "3:1 bank leverage on every dollar invested",
+        "Portfolio debt service coverage of 2.48x, nearly double the lender minimum",
+        "Lender relationships that have financed up to ~75% of project cost",
         "Owners who invest alongside you",
       ],
       cta: { label: "Explore investments", href: "/contact?topic=invest" },

@@ -60,6 +60,9 @@ export async function TrackRecord() {
               After
             </p>
           </div>
+          <p className="text-xs leading-relaxed text-muted-3">
+            Revenue per available room = occupancy × average daily rate.
+          </p>
         </figure>
       </div>
     </section>

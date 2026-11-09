@@ -40,11 +40,11 @@ export default function HomePage() {
       <main id="main" tabIndex={-1} className="flex flex-1 flex-col outline-none">
         <Hero />
         <StatsBand />
+        <FinancialStrength />
         <WhoWeAre />
         <Services />
         <Portfolio />
         <TrackRecord />
-        <FinancialStrength />
         <CeoQuote />
         <Partner />
         <Testimonials />

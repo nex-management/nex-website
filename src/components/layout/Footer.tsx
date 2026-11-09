@@ -81,7 +81,7 @@ export async function Footer() {
               © {year} {site.brandName}. All rights reserved.
             </p>
             <p>
-              {site.legalName} · FEI Number: {site.feiNumber}
+              {site.legalName}
             </p>
             <Link href="/privacy" prefetch={false} className="text-sand-2 no-underline hover:text-white">
               Privacy Policy

@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 
 /**
  * One document for the "Portfolio financial strength" section of the
- * homepage: the headline figures and the two comparison charts.
+ * homepage: the headline figures and up to four comparison charts.
  */
 export const financialStrength = defineType({
   name: "financialStrength",
@@ -93,7 +93,7 @@ export const financialStrength = defineType({
           preview: { select: { title: "title", subtitle: "caption" } },
         },
       ],
-      validation: (r) => r.max(2),
+      validation: (r) => r.max(4),
     }),
     defineField({ name: "hidden", title: "Hide this section", type: "boolean", initialValue: false }),
   ],
