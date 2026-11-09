@@ -56,6 +56,7 @@ export const financialStrength = defineType({
                 list: [
                   { title: "Multiple (1.25x)", value: "multiple" },
                   { title: "Millions of dollars ($6.87M)", value: "currency" },
+                  { title: "Dollars ($224)", value: "usd" },
                   { title: "Percent (36.5%)", value: "percent" },
                 ],
                 layout: "radio",

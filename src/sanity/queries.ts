@@ -9,7 +9,7 @@ export const siteSettingsQuery = defineQuery(`*[_type == "siteSettings"][0]{
 
 export const hotelsQuery = defineQuery(`*[_type == "hotel" && hidden != true] | order(order asc, name asc){
   "slug": slug.current, name, type, address, city, brand, rooms, managedSince, ownership,
-  highlights, description, image, gallery
+  highlights, description, image, gallery, location
 }`);
 
 export const teamQuery = defineQuery(`*[_type == "teamMember" && hidden != true] | order(order asc, name asc){

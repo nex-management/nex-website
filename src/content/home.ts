@@ -1,4 +1,5 @@
 import type {
+  MarketContent,
   AboutContent,
   CeoQuote,
   FinancialStrengthContent,
@@ -313,4 +314,60 @@ export const contact = {
   text: "Whether you're looking for a management partner, exploring an acquisition, or need guidance on a PIP project – reach out and we'll get back to you promptly.",
   scheduleHeading: "Prefer to schedule directly?",
   scheduleLabel: "Book a private consultation",
+};
+
+/**
+ * "Where we operate": the portfolio map and how the South Florida hotel
+ * market compares with the U.S. Market figures are public STR data –
+ * update them once a year (sources below).
+ */
+export const market: MarketContent = {
+  eyebrow: "Where we operate",
+  heading: "Six hotels in one of America's strongest hotel markets",
+  intro:
+    "Our portfolio spans Miami-Dade, Broward and Palm Beach counties: airport, suburban, urban and boutique hotels within an hour's drive of each other, so every property gets hands-on oversight.",
+  marketHeading: "South Florida outperforms the national market",
+  marketIntro: "Full-year 2025 hotel performance, Greater Miami compared with the United States as a whole.",
+  charts: [
+    {
+      title: "Occupancy",
+      caption: "Share of available rooms sold.",
+      format: "percent",
+      max: 80,
+      bars: [
+        { label: "United States", value: 62.3, display: "62.3%", emphasis: false },
+        { label: "Greater Miami", value: 73.9, display: "73.9%", emphasis: true },
+      ],
+    },
+    {
+      title: "Average daily rate",
+      caption: "Average price paid per occupied room.",
+      format: "usd",
+      max: 240,
+      bars: [
+        { label: "United States", value: 160.54, display: "$160.54", emphasis: false },
+        { label: "Greater Miami", value: 224.24, display: "$224.24", emphasis: true },
+      ],
+    },
+    {
+      title: "Revenue per available room",
+      caption: "Occupancy × average daily rate.",
+      format: "usd",
+      max: 180,
+      bars: [
+        { label: "United States", value: 100.02, display: "$100.02", emphasis: false },
+        { label: "Greater Miami", value: 165.73, display: "$165.73", emphasis: true },
+      ],
+    },
+  ],
+  sources: [
+    {
+      label: "Greater Miami: STR data via the Greater Miami Convention & Visitors Bureau, January–December 2025",
+      href: "https://www.miamiandbeaches.com/getmedia/964e21ca-c90b-427a-b314-bf5118214428/2025_Dec_Greater_Miami-Occupancy_and_ADR.pdf",
+    },
+    {
+      label: "United States: CoStar/STR full-year 2025 results (January 2026)",
+      href: "https://www.costar.com/es-la/productos/str-benchmark/recursos/notas-de-prensa/us-hotels-report-first-full-year-occupancy-revpar-declines-2020",
+    },
+  ],
 };

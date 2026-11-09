@@ -5,6 +5,7 @@ function formatTick(value: number, format: ChartFormat) {
   const n = Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
   if (format === "multiple") return `${n}x`;
   if (format === "currency") return value === 0 ? "$0" : `$${n}M`;
+  if (format === "usd") return `$${n}`;
   return `${n}%`;
 }
 

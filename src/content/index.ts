@@ -69,6 +69,11 @@ function hotelImageRef(img: SanityImage, altFallback: string): ImageRef | null {
   return { ...ref, srcSet: `${urlFor(img!, 600, 375)} 600w, ${urlFor(img!, 1200, 750)} 1200w` };
 }
 
+function mapLocation(value: unknown): Hotel["location"] {
+  const g = value as { lat?: unknown; lng?: unknown } | null | undefined;
+  return g && typeof g.lat === "number" && typeof g.lng === "number" ? { lat: g.lat, lng: g.lng } : null;
+}
+
 function mapHotel(h: Record<string, unknown>): Hotel {
   const gallery = Array.isArray(h.gallery) ? (h.gallery as SanityImage[]) : [];
   return {
@@ -85,6 +90,7 @@ function mapHotel(h: Record<string, unknown>): Hotel {
     rooms: typeof h.rooms === "number" ? h.rooms : null,
     managedSince: typeof h.managedSince === "number" ? h.managedSince : null,
     ownership: (h.ownership as Hotel["ownership"]) ?? null,
+    location: mapLocation(h.location),
   };
 }
 

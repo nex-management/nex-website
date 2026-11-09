@@ -112,6 +112,8 @@ export type Hotel = {
   rooms: number | null;
   managedSince: number | null;
   ownership: "Owned" | "Managed" | null;
+  /** Map position (approximate is fine: it places the dot on the portfolio map). */
+  location: { lat: number; lng: number } | null;
 };
 
 export type StrategyPillar = {
@@ -150,7 +152,7 @@ export type FinancialMetric = {
 };
 
 /** How a comparison chart formats its axis ticks. */
-export type ChartFormat = "multiple" | "currency" | "percent";
+export type ChartFormat = "multiple" | "currency" | "percent" | "usd";
 
 export type ComparisonBar = {
   label: string;
@@ -228,4 +230,15 @@ export type PartnerContent = {
   intro: string;
   tracks: PartnerTrack[];
   closingLine: string;
+};
+
+/** "Where we operate": portfolio map plus market comparison charts. */
+export type MarketContent = {
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  marketHeading: string;
+  marketIntro: string;
+  charts: ComparisonChart[];
+  sources: { label: string; href: string }[];
 };

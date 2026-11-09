@@ -26,6 +26,7 @@ export const hotels: Hotel[] = [
     rooms: null,
     managedSince: null,
     ownership: null,
+    location: { lat: 25.8085, lng: -80.3157 },
   },
   {
     slug: "la-quinta-miami-airport-west",
@@ -49,6 +50,7 @@ export const hotels: Hotel[] = [
     rooms: null,
     managedSince: null,
     ownership: null,
+    location: { lat: 25.8075, lng: -80.2655 },
   },
   {
     slug: "la-quinta-plantation",
@@ -72,6 +74,7 @@ export const hotels: Hotel[] = [
     rooms: null,
     managedSince: null,
     ownership: null,
+    location: { lat: 26.115, lng: -80.26 },
   },
   {
     slug: "la-quinta-coral-springs",
@@ -95,6 +98,7 @@ export const hotels: Hotel[] = [
     rooms: null,
     managedSince: null,
     ownership: null,
+    location: { lat: 26.27, lng: -80.252 },
   },
   {
     slug: "la-quinta-west-palm-beach",
@@ -118,6 +122,7 @@ export const hotels: Hotel[] = [
     rooms: null,
     managedSince: null,
     ownership: null,
+    location: { lat: 26.706, lng: -80.117 },
   },
   {
     slug: "nova-inn-boynton-beach",
@@ -141,5 +146,6 @@ export const hotels: Hotel[] = [
     rooms: null,
     managedSince: null,
     ownership: null,
+    location: { lat: 26.4975, lng: -80.061 },
   },
 ];

@@ -7,6 +7,7 @@ import { CeoQuote } from "@/components/home/CeoQuote";
 import { Contact } from "@/components/home/Contact";
 import { FinancialStrength } from "@/components/home/FinancialStrength";
 import { Hero } from "@/components/home/Hero";
+import { Market } from "@/components/home/Market";
 import { Partner } from "@/components/home/Partner";
 import { Portfolio } from "@/components/home/Portfolio";
 import { Services } from "@/components/home/Services";
@@ -44,6 +45,7 @@ export default function HomePage() {
         <WhoWeAre />
         <Services />
         <Portfolio />
+        <Market />
         <TrackRecord />
         <CeoQuote />
         <Partner />
