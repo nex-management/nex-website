@@ -59,7 +59,7 @@ export const portfolioPage = {
   eyebrow: "Portfolio",
   heading: "Branded and independent hotels across South Florida",
   intro:
-    "We operate branded hotels under Wyndham Hotels & Resorts, with properties in Miami, Plantation, Coral Springs, West Palm Beach and Boynton Beach, alongside independent boutique hotels. Our portfolio includes both branded and independent hotels serving the South Florida market.",
+    "We operate branded hotels under Wyndham Hotels & Resorts in Miami, Plantation and Coral Springs, alongside an independent boutique hotel in Boynton Beach. Our portfolio includes both branded and independent hotels serving the South Florida market.",
   strategyHeading: "Diversified portfolio strategy",
   cta: {
     heading: "Own a hotel in South Florida?",

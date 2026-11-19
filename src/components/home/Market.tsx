@@ -8,7 +8,7 @@ import { SectionIntro } from "@/components/ui/Typography";
 // South Florida map (simplified, drawn from real coordinates)
 // ---------------------------------------------------------------------------
 
-const BOUNDS = { west: -80.5, east: -79.98, north: 26.85, south: 25.66 };
+const BOUNDS = { west: -80.5, east: -79.98, north: 26.62, south: 25.66 };
 const K = 560; // px per degree of latitude
 const COS = Math.cos((26.2 * Math.PI) / 180);
 const W = Math.round((BOUNDS.east - BOUNDS.west) * COS * K);
@@ -42,7 +42,7 @@ const COUNTY_LINES = [
 ];
 
 const COUNTY_LABELS = [
-  { name: "Palm Beach County", lat: 26.8 },
+  { name: "Palm Beach County", lat: 26.56 },
   { name: "Broward County", lat: 26.0 },
   { name: "Miami-Dade County", lat: 25.9 },
 ];
@@ -54,7 +54,7 @@ function SouthFloridaMap({ hotels }: { hotels: (Hotel & { n: number })[] }) {
 
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-labelledby="market-map-title">
-      <title id="market-map-title">Map of the six Nex-managed hotels across Palm Beach, Broward and Miami-Dade counties</title>
+      <title id="market-map-title">{`Map of the ${hotels.length} Nex-managed hotels across Palm Beach, Broward and Miami-Dade counties`}</title>
       <rect width={W} height={H} fill="#e7eef0" />
       <path d={land} fill="#f4f1ea" />
       <path d={coastLine} fill="none" stroke="#b9c7cb" strokeWidth={1.5} />
