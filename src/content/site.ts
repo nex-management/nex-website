@@ -15,7 +15,7 @@ export const site: SiteSettings = {
     line1: "11030 SW 54th St",
     line2: "Davie, FL 33328",
   },
-  email: "mendy@nex-mgmt.com",
+  email: "contact@nex-mgmt.com",
   phone: null,
   schedulingUrl: null,
   linkedinUrl: null,

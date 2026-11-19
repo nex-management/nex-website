@@ -55,6 +55,12 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  async redirects() {
+    return [
+      // Hotels no longer in the portfolio: old links land on the portfolio page instead of a 404.
+      { source: "/portfolio/la-quinta-west-palm-beach", destination: "/portfolio", permanent: true },
+    ];
+  },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },

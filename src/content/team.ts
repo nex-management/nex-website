@@ -38,7 +38,7 @@ export const team: TeamMember[] = [
       height: 1000,
     },
     group: "leadership",
-    email: "mendy@nex-mgmt.com",
+    email: "contact@nex-mgmt.com",
     linkedinUrl: null,
     perspective:
       "We approach every property with an owner's mindset because, as hotel owners ourselves, we understand firsthand what it takes to protect an investment, drive profitability, and maximize the long-term value of an asset. Our young, dynamic team combines hands-on operational experience with deep local roots and a passion for delivering exceptional results. We believe successful partnerships are built on transparency, integrity, and accountability, which means communicating openly, making decisions with our owners' best interests in mind, and never making promises we can't keep. At the end of the day, our goal is simple: earn our clients' trust, maximize the potential of every property we manage, and let the results speak for themselves.",

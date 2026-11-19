@@ -25,7 +25,7 @@ export const hero = {
 export const stats: Stat[] = [
   { value: "$100M+", label: "Portfolio Under Management" },
   { value: "700+", label: "Hotel Rooms Managed" },
-  { value: "6", label: "Hotels Across South Florida" },
+  { value: "5", label: "Hotels Across South Florida" },
   { value: "2.48x", label: "Blended Debt Service Coverage" },
 ];
 
@@ -112,7 +112,7 @@ export const services: Service[] = [
 export const portfolioIntro = {
   eyebrow: "Our Portfolio",
   heading: "Branded and independent hotels across South Florida",
-  text: "We operate branded hotels under Wyndham Hotels & Resorts, with properties in Miami, Plantation, Coral Springs, West Palm Beach and Boynton Beach, alongside independent boutique hotels.",
+  text: "We operate branded hotels under Wyndham Hotels & Resorts in Miami, Plantation and Coral Springs, alongside an independent boutique hotel in Boynton Beach.",
 };
 
 export const strategyPillars: StrategyPillar[] = [
@@ -323,9 +323,9 @@ export const contact = {
  */
 export const market: MarketContent = {
   eyebrow: "Where we operate",
-  heading: "Six hotels in one of America's strongest hotel markets",
+  heading: "Five hotels in one of America's strongest hotel markets",
   intro:
-    "Our portfolio spans Miami-Dade, Broward and Palm Beach counties: airport, suburban, urban and boutique hotels within an hour's drive of each other, so every property gets hands-on oversight.",
+    "Our portfolio spans Miami-Dade, Broward and Palm Beach counties: airport, suburban and boutique hotels within an hour's drive of each other, so every property gets hands-on oversight.",
   marketHeading: "South Florida outperforms the national market",
   marketIntro: "Full-year 2025 hotel performance, Greater Miami compared with the United States as a whole.",
   charts: [
