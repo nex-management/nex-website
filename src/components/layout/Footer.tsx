@@ -25,11 +25,20 @@ export async function Footer() {
           <nav aria-label="Footer" className="flex flex-wrap gap-x-16 gap-y-10">
             <div className="flex flex-col gap-3">
               <p className={columnHeading}>Company</p>
-              {footer.company.map((item) => (
-                <Link key={item.href} href={item.href} prefetch={false} className={footerLink}>
-                  {item.label}
-                </Link>
-              ))}
+              {footer.company.map((item) =>
+                item.external ? (
+                  // Another site of the group: opens in a new tab, and says so.
+                  <a key={item.href} href={item.href} target="_blank" rel="noopener" className={footerLink}>
+                    {item.label}
+                    <span aria-hidden="true"> ↗</span>
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                ) : (
+                  <Link key={item.href} href={item.href} prefetch={false} className={footerLink}>
+                    {item.label}
+                  </Link>
+                ),
+              )}
             </div>
             <div className="flex flex-col gap-3">
               <p className={columnHeading}>Investors</p>

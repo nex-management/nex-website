@@ -18,9 +18,10 @@ export const site: SiteSettings = {
   email: "contact@nex-mgmt.com",
   phone: null,
   schedulingUrl: null,
-  linkedinUrl: null,
+  // The company page, addressed by its LinkedIn id (taken from the page's admin link).
+  linkedinUrl: "https://www.linkedin.com/company/109533801/",
   facebookUrl: "https://www.facebook.com/profile.php?id=61596633615886",
-  instagramUrl: "https://www.instagram.com/nexgrouop/",
+  instagramUrl: "https://www.instagram.com/nexgroups/",
   investorLoginUrl: null,
   videoUrl: "https://www.youtube.com/watch?v=iqNkrzyD-As",
   videoPoster: null,
@@ -49,8 +50,14 @@ export const mainNav: NavItem[] = [
   { label: "Contact", href: "/contact" },
 ];
 
+/** Nex Group Supplies: the group's wholesale hotel-supply site, a separate site on its own subdomain. */
+export const suppliesSite = {
+  name: "Nex Group Supplies",
+  url: "https://supplies.nex-mgmt.com/",
+};
+
 export const footerNav = {
-  company: mainNav,
+  company: [...mainNav, { label: suppliesSite.name, href: suppliesSite.url, external: true }] satisfies NavItem[],
   investors: [
     { label: "Investment opportunities", href: "/partner#investors" },
     { label: "Investor Login", href: "#investor-login" },

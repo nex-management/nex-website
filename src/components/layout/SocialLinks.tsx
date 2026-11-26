@@ -1,10 +1,13 @@
 import Image from "next/image";
 import type { SiteSettings } from "@/content/types";
-import { Icon } from "@/components/ui/Icon";
-// The Facebook and Instagram glyphs are the unchanged files from Simple Icons 16.38.1 (simpleicons.org, CC0-1.0).
+// The glyphs are the unchanged files from open icon libraries:
+//   Facebook, Instagram – Simple Icons 16.38.1 (simpleicons.org, CC0-1.0)
+//   LinkedIn – Font Awesome Free 7.3.1 (fontawesome.com, CC BY 4.0; the credit is inside the file).
+//              Simple Icons no longer carries a LinkedIn glyph.
 // The marks belong to their owners and are used here only to link to the company's own profiles.
 import facebookGlyph from "../../../public/images/social/facebook.svg";
 import instagramGlyph from "../../../public/images/social/instagram.svg";
+import linkedinGlyph from "../../../public/images/social/linkedin.svg";
 
 type Tone = "dark" | "light";
 
@@ -25,7 +28,7 @@ export function SocialLinks({ site, tone = "dark", className = "" }: Props) {
   const links = [
     site.facebookUrl ? { name: "Facebook", href: site.facebookUrl, glyph: facebookGlyph } : null,
     site.instagramUrl ? { name: "Instagram", href: site.instagramUrl, glyph: instagramGlyph } : null,
-    site.linkedinUrl ? { name: "LinkedIn", href: site.linkedinUrl, glyph: null } : null,
+    site.linkedinUrl ? { name: "LinkedIn", href: site.linkedinUrl, glyph: linkedinGlyph } : null,
   ].filter((link) => link !== null);
 
   if (links.length === 0) return null;
@@ -42,18 +45,14 @@ export function SocialLinks({ site, tone = "dark", className = "" }: Props) {
             aria-label={`${site.brandName} on ${link.name} (opens in a new tab)`}
             className={`group flex size-10 items-center justify-center rounded-full border transition-colors ${ring[tone]}`}
           >
-            {link.glyph ? (
-              <Image
-                src={link.glyph}
-                alt=""
-                width={18}
-                height={18}
-                unoptimized
-                className={`size-[18px] opacity-75 transition-opacity group-hover:opacity-100 ${tone === "dark" ? "invert" : ""}`}
-              />
-            ) : (
-              <Icon name="linkedin" size={18} />
-            )}
+            <Image
+              src={link.glyph}
+              alt=""
+              width={18}
+              height={18}
+              unoptimized
+              className={`size-[18px] opacity-75 transition-opacity group-hover:opacity-100 ${tone === "dark" ? "invert" : ""}`}
+            />
           </a>
         </li>
       ))}

@@ -18,7 +18,7 @@ import "server-only";
 import { cacheLife, cacheTag } from "next/cache";
 import * as home from "./home";
 import { hotelTypes, hotels as localHotels } from "./hotels";
-import { footerNav, mainNav, site as localSite } from "./site";
+import { footerNav, mainNav, site as localSite, suppliesSite } from "./site";
 import { careers, perspectivesIntro, team as localTeam, teamGroups, teamIntro } from "./team";
 import type {
   ComparisonChart,
@@ -200,6 +200,11 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 
 export function getNavigation() {
   return { main: mainNav, footer: footerNav };
+}
+
+/** Nex Group Supplies: the group's wholesale supply site (a separate site on its own subdomain). */
+export function getSuppliesSite() {
+  return suppliesSite;
 }
 
 /** Year shown in the footer's copyright line (refreshed with the content cache). */

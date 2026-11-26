@@ -29,7 +29,7 @@ Open http://localhost:3000. Node.js 22.12 or newer (see `.node-version`).
 | `src/sanity/` | Sanity client, image URL helper and GROQ queries |
 | `sanity/` | Sanity Studio schema (`schemaTypes/`), the Starter content tool and environment |
 | `src/app/fonts/` | Self-hosted Cormorant Garamond and Manrope (SIL Open Font License) |
-| `public/images/` | Logo, homepage opening image, hotel photos and team photos |
+| `public/images/` | Logo, homepage opening image, hotel photos, team photos, social icons and the Nex Group Supplies logo |
 | `.github/workflows/` | CI: lint, type-check and build on pull requests to `main` and pushes to `main`/`dev` |
 
 ## Content
@@ -41,6 +41,7 @@ Components read content only through `src/content/index.ts`. When Sanity is conn
 - Hotels: `src/content/hotels.ts`
 - Team members and their perspectives: `src/content/team.ts`
 - Inner-page copy (About, Services, Portfolio, Partner, Contact): `src/content/pages.ts`
+- Banner for Nex Group Supplies (homepage, under the services) and its link in the footer: the text is `supplies` in `src/content/home.ts`, the address is `suppliesSite` in `src/content/site.ts`. These are not in Sanity.
 
 Optional details (phone number, booking link, LinkedIn, investor portal, hotel rooms/years, testimonial names) are simply not shown until they have a value.
 

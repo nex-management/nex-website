@@ -109,6 +109,17 @@ export const services: Service[] = [
   },
 ];
 
+/**
+ * Banner under the services that links to Nex Group Supplies (the address is in site.ts).
+ * The wording follows what that site says about itself.
+ */
+export const supplies = {
+  eyebrow: "A Nexgroupe company",
+  heading: "Hotel supplies, direct from the factory",
+  text: "RFID door lock systems, linens, towels and custom key cards for hotel and motel operators, at wholesale prices with no middlemen.",
+  ctaLabel: "Visit Nex Group Supplies",
+};
+
 export const portfolioIntro = {
   eyebrow: "Our Portfolio",
   heading: "Branded and independent hotels across South Florida",
