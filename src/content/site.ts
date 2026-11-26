@@ -19,6 +19,8 @@ export const site: SiteSettings = {
   phone: null,
   schedulingUrl: null,
   linkedinUrl: null,
+  facebookUrl: "https://www.facebook.com/profile.php?id=61596633615886",
+  instagramUrl: "https://www.instagram.com/nexgrouop/",
   investorLoginUrl: null,
   videoUrl: "https://www.youtube.com/watch?v=iqNkrzyD-As",
   videoPoster: null,

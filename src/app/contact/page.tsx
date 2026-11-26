@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { ContactForm } from "@/components/home/ContactForm";
 import { ContactFormWithTopic } from "@/components/home/ContactFormWithTopic";
+import { SocialLinks } from "@/components/layout/SocialLinks";
 import { TextLink } from "@/components/ui/Button";
 import { Eyebrow, Heading } from "@/components/ui/Typography";
 
@@ -63,6 +64,14 @@ export default async function ContactPage() {
                       <a href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} className="text-ink">
                         {site.phone}
                       </a>
+                    </dd>
+                  </div>
+                ) : null}
+                {site.facebookUrl || site.instagramUrl || site.linkedinUrl ? (
+                  <div className="flex flex-col gap-2">
+                    <dt className={detailLabel}>Follow us</dt>
+                    <dd>
+                      <SocialLinks site={site} tone="light" />
                     </dd>
                   </div>
                 ) : null}

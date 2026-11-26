@@ -50,6 +50,10 @@ export type SiteSettings = {
   schedulingUrl: string | null;
   /** Company LinkedIn page. null = link hidden / placeholder. */
   linkedinUrl: string | null;
+  /** Company Facebook page. null = icon hidden. */
+  facebookUrl: string | null;
+  /** Company Instagram profile. null = icon hidden. */
+  instagramUrl: string | null;
   /** Investor portal. null = shown as "coming soon". */
   investorLoginUrl: string | null;
   /** YouTube watch URL for the "See our impact" section. */

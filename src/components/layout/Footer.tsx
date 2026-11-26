@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../public/images/brand/nex-logo-sm.png";
 import { getCopyrightYear, getNavigation, getSiteSettings } from "@/content";
+import { SocialLinks } from "./SocialLinks";
 
 const footerLink = "text-sm text-sand-2 no-underline transition-colors hover:text-white";
 const columnHeading = "text-[11px] font-bold uppercase tracking-[0.18em] text-white";
@@ -18,6 +19,7 @@ export async function Footer() {
             <Image src={logo} alt={site.brandName} unoptimized className="h-16 w-auto self-start" />
             <p className="font-display text-[22px] font-medium italic text-sand-3">{site.tagline}</p>
             <p className="text-sm leading-relaxed text-muted-3">{site.shortDescription}</p>
+            <SocialLinks site={site} />
           </div>
 
           <nav aria-label="Footer" className="flex flex-wrap gap-x-16 gap-y-10">
@@ -64,11 +66,6 @@ export async function Footer() {
               {site.phone ? (
                 <a href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} className={footerLink}>
                   {site.phone}
-                </a>
-              ) : null}
-              {site.linkedinUrl ? (
-                <a href={site.linkedinUrl} target="_blank" rel="noopener noreferrer" className={footerLink}>
-                  LinkedIn
                 </a>
               ) : null}
             </div>

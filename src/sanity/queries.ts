@@ -1,7 +1,7 @@
 import { defineQuery } from "next-sanity";
 
 export const siteSettingsQuery = defineQuery(`*[_type == "siteSettings"][0]{
-  email, phone, addressLine1, addressLine2, schedulingUrl, linkedinUrl, investorLoginUrl,
+  email, phone, addressLine1, addressLine2, schedulingUrl, linkedinUrl, facebookUrl, instagramUrl, investorLoginUrl,
   heroImage, videoUrl, videoPoster,
   stats[]{value, label}, statsAsOf, statsFootnote,
   seoTitle, seoDescription, legalName, feiNumber, legalDisclaimer

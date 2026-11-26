@@ -124,6 +124,8 @@ function mapSettings(s: Record<string, unknown>): SiteSettings {
     },
     schedulingUrl: (s.schedulingUrl as string) || null,
     linkedinUrl: (s.linkedinUrl as string) || null,
+    facebookUrl: (s.facebookUrl as string) || null,
+    instagramUrl: (s.instagramUrl as string) || null,
     investorLoginUrl: (s.investorLoginUrl as string) || null,
     heroImage: heroImageRef(s.heroImage as SanityImage),
     videoUrl: (s.videoUrl as string) || null,
