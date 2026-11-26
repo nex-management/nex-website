@@ -41,7 +41,7 @@ Components read content only through `src/content/index.ts`. When Sanity is conn
 - Hotels: `src/content/hotels.ts`
 - Team members and their perspectives: `src/content/team.ts`
 - Inner-page copy (About, Services, Portfolio, Partner, Contact): `src/content/pages.ts`
-- Banner for Nex Group Supplies (homepage, under the services) and its link in the footer: the text is `supplies` in `src/content/home.ts`, the address is `suppliesSite` in `src/content/site.ts`. These are not in Sanity.
+- Nex Group Supplies (the group's separate supplies site): the homepage banner under the services takes its text from `supplies` in `src/content/home.ts`; the address, the name used in the footer and the short name used in the header menus are `suppliesSite` in `src/content/site.ts`. These are not in Sanity.
 
 Optional details (phone number, booking link, LinkedIn, investor portal, hotel rooms/years, testimonial names) are simply not shown until they have a value.
 

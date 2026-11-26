@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../public/images/brand/nex-logo-sm.png";
 import { getCopyrightYear, getNavigation, getSiteSettings } from "@/content";
+import { NewTabMark } from "@/components/ui/NewTabMark";
 import { SocialLinks } from "./SocialLinks";
 
 const footerLink = "text-sm text-sand-2 no-underline transition-colors hover:text-white";
@@ -30,8 +31,7 @@ export async function Footer() {
                   // Another site of the group: opens in a new tab, and says so.
                   <a key={item.href} href={item.href} target="_blank" rel="noopener" className={footerLink}>
                     {item.label}
-                    <span aria-hidden="true"> ↗</span>
-                    <span className="sr-only"> (opens in a new tab)</span>
+                    <NewTabMark />
                   </a>
                 ) : (
                   <Link key={item.href} href={item.href} prefetch={false} className={footerLink}>

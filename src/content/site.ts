@@ -53,8 +53,16 @@ export const mainNav: NavItem[] = [
 /** Nex Group Supplies: the group's wholesale hotel-supply site, a separate site on its own subdomain. */
 export const suppliesSite = {
   name: "Nex Group Supplies",
+  /** Short name used in the header menus. */
+  menuLabel: "Hotel Supplies",
   url: "https://supplies.nex-mgmt.com/",
 };
+
+/** Header menus (the desktop bar and the phone menu): the site's pages, then the link to the supplies site. */
+export const headerNav: NavItem[] = [
+  ...mainNav,
+  { label: suppliesSite.menuLabel, href: suppliesSite.url, external: true },
+];
 
 export const footerNav = {
   company: [...mainNav, { label: suppliesSite.name, href: suppliesSite.url, external: true }] satisfies NavItem[],

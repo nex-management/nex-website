@@ -3,8 +3,10 @@ import Link from "next/link";
 import logo from "../../../public/images/brand/nex-logo-sm.png";
 import { getNavigation, getSiteSettings } from "@/content";
 import { Icon } from "@/components/ui/Icon";
+import { NewTabMark } from "@/components/ui/NewTabMark";
 
 const linkClass = "label-caps whitespace-nowrap py-2.5 text-ink no-underline transition-colors hover:text-gold-text";
+const mobileLinkClass = "border-b border-line py-4 text-[15px] font-semibold text-ink no-underline";
 
 export async function Header({ currentPath = "/" }: { currentPath?: string }) {
   const site = await getSiteSettings();
@@ -33,17 +35,25 @@ export async function Header({ currentPath = "/" }: { currentPath?: string }) {
 
         {/* Desktop navigation (from 1280px; narrower screens get the menu button) */}
         <nav aria-label="Main" className="hidden items-center gap-8 xl:flex">
-          {main.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              prefetch={false}
-              aria-current={isCurrent(item.href) ? "page" : undefined}
-              className={`${linkClass} ${isCurrent(item.href) ? "border-b-2 border-gold text-gold-text" : ""}`}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {main.map((item) =>
+            item.external ? (
+              // Another site of the group (the supplies site): opens in a new tab, and says so.
+              <a key={item.href} href={item.href} target="_blank" rel="noopener" className={linkClass}>
+                {item.label}
+                <NewTabMark />
+              </a>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                prefetch={false}
+                aria-current={isCurrent(item.href) ? "page" : undefined}
+                className={`${linkClass} ${isCurrent(item.href) ? "border-b-2 border-gold text-gold-text" : ""}`}
+              >
+                {item.label}
+              </Link>
+            ),
+          )}
         </nav>
 
         <div className="hidden items-center gap-6 xl:flex">
@@ -69,19 +79,24 @@ export async function Header({ currentPath = "/" }: { currentPath?: string }) {
             aria-label="Main"
             className="absolute inset-x-0 top-full flex flex-col border-b border-line bg-white px-[clamp(1.25rem,5vw,4rem)] pb-6 pt-2 shadow-[0_24px_40px_-24px_rgba(22,21,15,0.35)]"
           >
-            {main.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                prefetch={false}
-                aria-current={isCurrent(item.href) ? "page" : undefined}
-                className={`border-b border-line py-4 text-[15px] font-semibold text-ink no-underline ${
-                  isCurrent(item.href) ? "text-gold-text" : ""
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {main.map((item) =>
+              item.external ? (
+                <a key={item.href} href={item.href} target="_blank" rel="noopener" className={mobileLinkClass}>
+                  {item.label}
+                  <NewTabMark />
+                </a>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  prefetch={false}
+                  aria-current={isCurrent(item.href) ? "page" : undefined}
+                  className={`${mobileLinkClass} ${isCurrent(item.href) ? "text-gold-text" : ""}`}
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
             <div className="flex flex-col gap-4 pt-5">
               {investorLogin}
               <Link
