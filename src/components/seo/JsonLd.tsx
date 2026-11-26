@@ -20,6 +20,7 @@ export function JsonLd({ data }: { data: JsonLdData | JsonLdData[] }) {
 export const ORGANIZATION_ID = `${siteUrl}/#organization`;
 
 export function organizationJsonLd(site: SiteSettings): JsonLdData {
+  const profiles = [site.facebookUrl, site.instagramUrl, site.linkedinUrl].filter((url): url is string => Boolean(url));
   return {
     "@context": "https://schema.org",
     "@type": ["Organization", "ProfessionalService"],
@@ -40,7 +41,7 @@ export function organizationJsonLd(site: SiteSettings): JsonLdData {
       addressCountry: "US",
     },
     areaServed: ["Miami-Dade County", "Broward County", "Palm Beach County"],
-    ...(site.linkedinUrl ? { sameAs: [site.linkedinUrl] } : {}),
+    ...(profiles.length > 0 ? { sameAs: profiles } : {}),
   };
 }
 

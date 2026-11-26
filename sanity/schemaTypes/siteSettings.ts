@@ -20,7 +20,9 @@ export const siteSettings = defineType({
     defineField({ name: "addressLine1", title: "Address line 1", type: "string", group: "contact" }),
     defineField({ name: "addressLine2", title: "Address line 2", type: "string", group: "contact" }),
     defineField({ name: "schedulingUrl", title: "Booking link (Calendly or similar)", type: "url", group: "contact", description: "Used by every 'Schedule a call' button. Leave empty to hide them." }),
-    defineField({ name: "linkedinUrl", title: "Company LinkedIn page", type: "url", group: "contact" }),
+    defineField({ name: "linkedinUrl", title: "Company LinkedIn page", type: "url", group: "contact", description: "Shown as an icon in the footer and on the contact page. Leave empty to hide." }),
+    defineField({ name: "facebookUrl", title: "Company Facebook page", type: "url", group: "contact", description: "Shown as an icon in the footer and on the contact page. Leave empty to hide." }),
+    defineField({ name: "instagramUrl", title: "Company Instagram profile", type: "url", group: "contact", description: "Shown as an icon in the footer and on the contact page. Leave empty to hide." }),
     defineField({ name: "investorLoginUrl", title: "Investor portal link", type: "url", group: "contact", description: "Leave empty while there is no portal; the menu item shows as 'coming soon'." }),
 
     defineField({

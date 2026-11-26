@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../public/images/brand/nex-logo-sm.png";
 import { getCopyrightYear, getNavigation, getSiteSettings } from "@/content";
+import { NewTabMark } from "@/components/ui/NewTabMark";
+import { SocialLinks } from "./SocialLinks";
 
 const footerLink = "text-sm text-sand-2 no-underline transition-colors hover:text-white";
 const columnHeading = "text-[11px] font-bold uppercase tracking-[0.18em] text-white";
@@ -18,16 +20,25 @@ export async function Footer() {
             <Image src={logo} alt={site.brandName} unoptimized className="h-16 w-auto self-start" />
             <p className="font-display text-[22px] font-medium italic text-sand-3">{site.tagline}</p>
             <p className="text-sm leading-relaxed text-muted-3">{site.shortDescription}</p>
+            <SocialLinks site={site} />
           </div>
 
           <nav aria-label="Footer" className="flex flex-wrap gap-x-16 gap-y-10">
             <div className="flex flex-col gap-3">
               <p className={columnHeading}>Company</p>
-              {footer.company.map((item) => (
-                <Link key={item.href} href={item.href} prefetch={false} className={footerLink}>
-                  {item.label}
-                </Link>
-              ))}
+              {footer.company.map((item) =>
+                item.external ? (
+                  // Another site of the group: opens in a new tab, and says so.
+                  <a key={item.href} href={item.href} target="_blank" rel="noopener" className={footerLink}>
+                    {item.label}
+                    <NewTabMark />
+                  </a>
+                ) : (
+                  <Link key={item.href} href={item.href} prefetch={false} className={footerLink}>
+                    {item.label}
+                  </Link>
+                ),
+              )}
             </div>
             <div className="flex flex-col gap-3">
               <p className={columnHeading}>Investors</p>
@@ -64,11 +75,6 @@ export async function Footer() {
               {site.phone ? (
                 <a href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} className={footerLink}>
                   {site.phone}
-                </a>
-              ) : null}
-              {site.linkedinUrl ? (
-                <a href={site.linkedinUrl} target="_blank" rel="noopener noreferrer" className={footerLink}>
-                  LinkedIn
                 </a>
               ) : null}
             </div>

@@ -18,7 +18,7 @@ import "server-only";
 import { cacheLife, cacheTag } from "next/cache";
 import * as home from "./home";
 import { hotelTypes, hotels as localHotels } from "./hotels";
-import { footerNav, mainNav, site as localSite } from "./site";
+import { footerNav, headerNav, site as localSite, suppliesSite } from "./site";
 import { careers, perspectivesIntro, team as localTeam, teamGroups, teamIntro } from "./team";
 import type {
   ComparisonChart,
@@ -124,6 +124,8 @@ function mapSettings(s: Record<string, unknown>): SiteSettings {
     },
     schedulingUrl: (s.schedulingUrl as string) || null,
     linkedinUrl: (s.linkedinUrl as string) || null,
+    facebookUrl: (s.facebookUrl as string) || null,
+    instagramUrl: (s.instagramUrl as string) || null,
     investorLoginUrl: (s.investorLoginUrl as string) || null,
     heroImage: heroImageRef(s.heroImage as SanityImage),
     videoUrl: (s.videoUrl as string) || null,
@@ -197,7 +199,12 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 }
 
 export function getNavigation() {
-  return { main: mainNav, footer: footerNav };
+  return { main: headerNav, footer: footerNav };
+}
+
+/** Nex Group Supplies: the group's wholesale supply site (a separate site on its own subdomain). */
+export function getSuppliesSite() {
+  return suppliesSite;
 }
 
 /** Year shown in the footer's copyright line (refreshed with the content cache). */

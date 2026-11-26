@@ -12,6 +12,7 @@ import { Partner } from "@/components/home/Partner";
 import { Portfolio } from "@/components/home/Portfolio";
 import { Services } from "@/components/home/Services";
 import { StatsBand } from "@/components/home/StatsBand";
+import { Supplies } from "@/components/home/Supplies";
 import { Testimonials } from "@/components/home/Testimonials";
 import { TrackRecord } from "@/components/home/TrackRecord";
 import { Video } from "@/components/home/Video";
@@ -44,6 +45,7 @@ export default function HomePage() {
         <FinancialStrength />
         <WhoWeAre />
         <Services />
+        <Supplies />
         <Portfolio />
         <Market />
         <TrackRecord />

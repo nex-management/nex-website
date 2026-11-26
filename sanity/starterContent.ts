@@ -30,6 +30,8 @@ export function starterSiteSettings(): StarterDocument {
     addressLine2: site.address.line2,
     schedulingUrl: site.schedulingUrl,
     linkedinUrl: site.linkedinUrl,
+    facebookUrl: site.facebookUrl,
+    instagramUrl: site.instagramUrl,
     investorLoginUrl: site.investorLoginUrl,
     videoUrl: site.videoUrl,
     stats: stats.map((s, i) => ({ _key: `stat-${i + 1}`, _type: "stat", value: s.value, label: s.label })),
